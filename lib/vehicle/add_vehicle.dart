@@ -6,6 +6,7 @@ import 'package:mycargenie_2/theme/icons.dart';
 import 'package:mycargenie_2/utils/focusable_dropdown.dart';
 import 'package:mycargenie_2/utils/image_picker.dart';
 import 'package:mycargenie_2/utils/reusable_textfield.dart';
+import 'package:mycargenie_2/utils/year_picker.dart';
 import 'package:provider/provider.dart';
 import '../utils/lists.dart';
 import '../utils/puzzle.dart';
@@ -25,7 +26,7 @@ class AddVehicle extends StatefulWidget {
 class _AddVehicleState extends State<AddVehicle> {
   final TextEditingController _modelCtrl = TextEditingController();
   final TextEditingController _configCtrl = TextEditingController();
-  final TextEditingController _yearCtrl = TextEditingController();
+  // final TextEditingController _yearCtrl = TextEditingController();
   final TextEditingController _capacityCtrl = TextEditingController();
   final TextEditingController _powerCtrl = TextEditingController();
   final TextEditingController _horseCtrl = TextEditingController();
@@ -39,6 +40,7 @@ class _AddVehicleState extends State<AddVehicle> {
   String? _previewImagePath;
 
   String? _brand;
+  int? _year;
   String? _category;
   String? _energy;
   String? _ecology;
@@ -57,12 +59,13 @@ class _AddVehicleState extends State<AddVehicle> {
 
       _modelCtrl.text = eventToEdit['model'] ?? '';
       _configCtrl.text = eventToEdit['config'] ?? '';
-      _yearCtrl.text = eventToEdit['year']?.toString() ?? '';
+      // _yearCtrl.text = eventToEdit['year']?.toString() ?? '';
       _capacityCtrl.text = eventToEdit['capacity']?.toString() ?? '';
       _powerCtrl.text = eventToEdit['power']?.toString() ?? '';
       _horseCtrl.text = eventToEdit['horse']?.toString() ?? '';
 
       _brand = eventToEdit['brand'] as String?;
+      _year = eventToEdit['year'] as int?;
       _category = eventToEdit['category'] as String?;
       _energy = eventToEdit['energy'] as String?;
       _ecology = eventToEdit['ecology'] as String?;
@@ -74,7 +77,7 @@ class _AddVehicleState extends State<AddVehicle> {
   void dispose() {
     _modelCtrl.dispose();
     _configCtrl.dispose();
-    _yearCtrl.dispose();
+    // _yearCtrl.dispose();
     _capacityCtrl.dispose();
     _powerCtrl.dispose();
     _horseCtrl.dispose();
@@ -104,7 +107,8 @@ class _AddVehicleState extends State<AddVehicle> {
       'brand': _brand,
       'model': _modelCtrl.text.trim(),
       'config': _configCtrl.text.trim(),
-      'year': int.tryParse(_yearCtrl.text),
+      'year': _year ?? DateTime.now().year.toInt(),
+      // 'year': int.tryParse(_yearCtrl.text),
       'capacity': int.tryParse(_capacityCtrl.text),
       'power': int.tryParse(_powerCtrl.text),
       'horse': int.tryParse(_horseCtrl.text),
@@ -234,15 +238,22 @@ class _AddVehicleState extends State<AddVehicle> {
             mainAxisSize: MainAxisSize.max,
             children: [
               // TODO: Turn into datepicker
-              customTextField(
-                context,
-                hintText: 'Year',
-                type: TextInputType.number,
-                maxLength: 4,
-                formatter: [FilteringTextInputFormatter.digitsOnly],
-                controller: _yearCtrl,
-                action: TextInputAction.next,
+              YearPickerButton(
+                editDate: isEdit ? DateTime(_year!) : null,
+                onSelected: (value) {
+                  log('year selected: $value');
+                  setState(() => _year = value.year);
+                },
               ),
+              // customTextField(
+              //   context,
+              //   hintText: 'Year',
+              //   type: TextInputType.number,
+              //   maxLength: 4,
+              //   formatter: [FilteringTextInputFormatter.digitsOnly],
+              //   controller: _yearCtrl,
+              //   action: TextInputAction.next,
+              // ),
               const SizedBox(width: 8),
               customTextField(
                 context,
@@ -395,3 +406,36 @@ class _AddVehicleState extends State<AddVehicle> {
     );
   }
 }
+
+// DateTime selectedYear = DateTime.now();
+
+// YearPicker yearPicker = YearPicker(
+//   firstDate: DateTime(1995),
+//   lastDate: DateTime(2050),
+//   selectedDate: DateTime.now(),
+//   onChanged: (value) => selectedYear = value,
+// );
+
+// Future<dynamic> showYearPicker(BuildContext context,) {
+//   return showDialog(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return AlertDialog(
+//         title: Text("Select Year"),
+//         content: SizedBox(
+//           width: 300,
+//           height: 300,
+//           child: YearPicker(
+//             firstDate: DateTime(DateTime.now().year - 100, 1),
+//             lastDate: DateTime(DateTime.now().year + 100, 1),
+//             selectedDate: selectedYear,
+//             onChanged: (DateTime dateTime) {
+//               selectedYear = dateTime;
+//               Navigator.pop(context);
+//             },
+//           ),
+//         ),
+//       );
+//     },
+//   );
+// }
