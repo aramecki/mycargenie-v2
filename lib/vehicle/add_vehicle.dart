@@ -237,23 +237,12 @@ class _AddVehicleState extends State<AddVehicle> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
-              // TODO: Turn into datepicker
               YearPickerButton(
                 editDate: isEdit ? DateTime(_year!) : null,
                 onSelected: (value) {
-                  log('year selected: $value');
                   setState(() => _year = value.year);
                 },
               ),
-              // customTextField(
-              //   context,
-              //   hintText: 'Year',
-              //   type: TextInputType.number,
-              //   maxLength: 4,
-              //   formatter: [FilteringTextInputFormatter.digitsOnly],
-              //   controller: _yearCtrl,
-              //   action: TextInputAction.next,
-              // ),
               const SizedBox(width: 8),
               customTextField(
                 context,

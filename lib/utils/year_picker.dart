@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:mycargenie_2/theme/icons.dart';
 
@@ -40,17 +38,17 @@ class _YearPickerButtonState extends State<YearPickerButton> {
             height: 300,
             child: YearPicker(
               firstDate: DateTime(DateTime.now().year - 100, 1),
-              lastDate: DateTime(DateTime.now().year + 100, 1),
+              lastDate: DateTime(DateTime.now().year),
               selectedDate: selectedYear,
               onChanged: (DateTime pickedYear) {
                 setState(() {
-                  log(
-                    'picked year: $pickedYear, selectedYear: $selectedYear, dateToShow: $dateToShow',
-                  );
+                  // log(
+                  //   'picked year: $pickedYear, selectedYear: $selectedYear, dateToShow: $dateToShow',
+                  // );
                   selectedYear = pickedYear;
                   dateToShow = pickedYear;
                   if (selectedYear != null) {
-                    log('calling');
+                    // log('calling');
                     widget.onSelected?.call(selectedYear!);
                   }
                 });

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mycargenie_2/theme/icons.dart';
+import 'package:mycargenie_2/theme/misc.dart';
 import 'package:mycargenie_2/vehicle/show_vehicle.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -100,9 +101,29 @@ class _GarageState extends State<Garage> {
                                   ),
                                   title: Text(
                                     '${item['brand']} ${item['model']}',
+                                    style: titleTextStyle,
                                   ),
-                                  subtitle: Text(
-                                    'Year: ${item['year']} Power: ${item['power']}',
+                                  subtitle: Row(
+                                    children: [
+                                      Text(
+                                        item['power'] != null
+                                            ? '${item['power']}kW '
+                                            : '',
+                                        style: subtitleTextStyle,
+                                      ),
+                                      Text(
+                                        item['horse'] != null
+                                            ? '${item['horse']}CV '
+                                            : '',
+                                        style: subtitleTextStyle,
+                                      ),
+                                      Text(
+                                        item['capacity'] != null
+                                            ? '${item['capacity']}CC '
+                                            : '',
+                                        style: subtitleTextStyle,
+                                      ),
+                                    ],
                                   ),
                                   selectedColor: Colors.blue,
                                   trailing: favouriteIconButton(
