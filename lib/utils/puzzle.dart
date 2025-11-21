@@ -41,10 +41,10 @@ Widget buildAddButton(
 }
 
 // Fun to parse strings into ints removing chars
-int? parseDigits(String input) {
-  final digitsOnly = input.replaceAll(RegExp(r'[^0-9]'), '');
-  return int.tryParse(digitsOnly);
-}
+// int? parseDigits(String input) {
+//   final digitsOnly = input.replaceAll(RegExp(r'[^0-9]'), '');
+//   return int.tryParse(digitsOnly);
+// }
 
 class CustomCheckbox extends StatefulWidget {
   final ValueChanged<bool> onChanged;
@@ -152,7 +152,7 @@ Widget slideableIcon(
   );
 }
 
-// Adaptive button
+// Box containing latest events for selected vehicle in home screen
 Widget homeRowBox(
   BuildContext context, {
   //   required VoidCallback onPressed,

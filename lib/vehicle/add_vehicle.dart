@@ -226,6 +226,7 @@ class _AddVehicleState extends State<AddVehicle> {
               customTextField(
                 context,
                 hintText: 'Configuration',
+                maxLength: 30,
                 controller: _configCtrl,
                 action: TextInputAction.next,
               ),

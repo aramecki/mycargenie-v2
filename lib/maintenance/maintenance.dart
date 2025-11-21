@@ -188,6 +188,7 @@ class _MaintenanceState extends State<Maintenance> {
         return Scaffold(
           appBar: AppBar(
             title: const Text('Maintenance'),
+            // TODO: Add search icon or floating button
             actions: <Widget>[
               IconButton(
                 padding: EdgeInsets.all(0),

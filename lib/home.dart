@@ -97,7 +97,6 @@ class _HomePageState extends State<Home> {
                       ),
 
                       // Car selection dropdown container
-                      // TODO: Change to non text inputtable dropdown
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(

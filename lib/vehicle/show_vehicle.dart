@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:mycargenie_2/theme/icons.dart';
 import 'dart:io';
 import '../utils/puzzle.dart';
@@ -59,9 +60,9 @@ class _ShowVehicleState extends State<ShowVehicle> {
       mainAxisSize: MainAxisSize.max,
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 16, bottom: 12),
+          padding: EdgeInsets.only(top: 10, bottom: 4),
           child: CircleAvatar(
-            radius: 100,
+            radius: 120,
             backgroundColor: Colors.deepOrange,
             backgroundImage: _assetImage != null
                 ? FileImage(File(_assetImage!))
@@ -69,7 +70,7 @@ class _ShowVehicleState extends State<ShowVehicle> {
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: EdgeInsets.only(left: 16, right: 16, top: 2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
@@ -78,30 +79,31 @@ class _ShowVehicleState extends State<ShowVehicle> {
                 '$_brand $_model',
                 style: TextStyle(
                   color: Colors.deepOrange,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [if (_config != null) Text(_config!)],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: EdgeInsets.only(left: 16, right: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
-              if (_year != null) Text(_year!),
-              const SizedBox(width: 8),
-              if (_capacity != null) Text(_capacity!),
+              if (_config != null)
+                Text(_config!, style: TextStyle(fontSize: 19)),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 16, right: 16, bottom: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              if (_year != null) Text(_year!, style: TextStyle(fontSize: 17)),
             ],
           ),
         ),
@@ -110,31 +112,39 @@ class _ShowVehicleState extends State<ShowVehicle> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
-            children: [
-              if (_power != null) Text(_power!),
-              const SizedBox(width: 8),
-              if (_horse != null) Text(_horse!),
-            ],
+            children: [if (_capacity != null) Text('${_capacity}CC')],
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
-              if (_category != null) Text(_category!),
+              if (_power != null) Text('${_power}kW'),
               const SizedBox(width: 8),
+              if (_horse != null) Text('${_horse}CV'),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [if (_category != null) Text(_category!)],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
               if (_energy != null) Text(_energy!),
+              const SizedBox(width: 8),
+              if (_ecology != null) Text(_ecology!),
             ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: [if (_ecology != null) Text(_ecology!)],
           ),
         ),
         // Padding(
@@ -161,23 +171,14 @@ class _ShowVehicleState extends State<ShowVehicle> {
       appBar: AppBar(
         // title: Text('$_brand $_model'),
         leading: customBackButton(context),
-
-        actions: <Widget>[
-          if (_favourite == true)
-            // Padding(
-            //   padding: EdgeInsetsGeometry.all(10),
-            //   child:
-            activeStarIcon,
-
-          // ),
-          IconButton(
-            padding: EdgeInsets.all(0),
-            icon: shareIcon,
-            onPressed: () {
-              showCustomToast(context, message: 'Share opened');
-            },
-          ),
-        ],
+        actions: <Widget>[if (_favourite == true) activeStarIcon],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.deepOrange,
+        child: shareIcon,
+        onPressed: () {
+          showCustomToast(context, message: 'Share opened');
+        },
       ),
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,

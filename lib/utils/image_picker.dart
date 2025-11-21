@@ -6,8 +6,6 @@ import 'package:mycargenie_2/theme/icons.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-// TODO: Generalize
-
 class VehicleImagePicker extends StatefulWidget {
   final ValueChanged<String?>? onImagePicked;
   final String? initialImagePath;

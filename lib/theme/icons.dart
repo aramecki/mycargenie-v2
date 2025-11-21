@@ -21,7 +21,11 @@ HugeIcon calendarIcon = HugeIcon(
 );
 
 // Share icon
-HugeIcon shareIcon = HugeIcon(icon: HugeIcons.strokeRoundedShare08, size: 25);
+HugeIcon shareIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedShare08,
+  size: 35,
+  strokeWidth: 1.5,
+);
 
 // Filled Star icon
 HugeIcon activeStarIcon = HugeIcon(icon: HugeIcons.strokeRoundedStar, size: 25);
