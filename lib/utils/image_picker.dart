@@ -67,7 +67,7 @@ class VehicleImagePickerState extends State<VehicleImagePicker> {
                           alignment: Alignment.center,
                           child: IconButton(
                             onPressed: _selectAndShowImage,
-                            icon: imageIcon,
+                            icon: imageIcon(),
                           ),
                         ),
                       ),
@@ -83,7 +83,7 @@ class VehicleImagePickerState extends State<VehicleImagePicker> {
                           alignment: Alignment.center,
                           child: IconButton(
                             onPressed: _selectAndShowImage,
-                            icon: imageIcon,
+                            icon: imageIcon(),
                           ),
                         ),
                       ),

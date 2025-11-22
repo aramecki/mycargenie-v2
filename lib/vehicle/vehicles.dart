@@ -81,7 +81,7 @@ class _GarageState extends State<Garage> {
                                       context,
                                       key,
                                     ),
-                                    icon: deleteIcon,
+                                    icon: deleteIcon(),
                                   ),
                                   slideableIcon(
                                     context,

@@ -20,6 +20,7 @@ class _MaintenanceState extends State<Maintenance> {
   String currentSort = 'date';
   bool isDecrementing = true;
   bool isSorting = false;
+  bool isSearching = false;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +90,6 @@ class _MaintenanceState extends State<Maintenance> {
               )
             : Column(
                 children: [
-                  // if (isSorting == true)
                   AnimatedSwitcher(
                     duration: const Duration(milliseconds: 200),
                     transitionBuilder:
@@ -107,6 +107,20 @@ class _MaintenanceState extends State<Maintenance> {
                               isDecrementing = !isDecrementing;
                             });
                           }, isDecrementing)
+                        : const SizedBox.shrink(key: ValueKey('hidden')),
+                  ),
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 200),
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) {
+                          return SizeTransition(
+                            sizeFactor: animation,
+                            axisAlignment: -1.0,
+                            child: child,
+                          );
+                        },
+                    child: isSearching
+                        ? customSearchingPanel(context)
                         : const SizedBox.shrink(key: ValueKey('hidden')),
                   ),
 
@@ -129,7 +143,7 @@ class _MaintenanceState extends State<Maintenance> {
                                   slideableIcon(
                                     context,
                                     onPressed: (_) => _deleteMaintenance(key),
-                                    icon: deleteIcon,
+                                    icon: deleteIcon(),
                                   ),
                                   slideableIcon(
                                     context,
@@ -189,17 +203,21 @@ class _MaintenanceState extends State<Maintenance> {
           appBar: AppBar(
             title: const Text('Maintenance'),
             // TODO: Add search icon or floating button
-            actions: <Widget>[
-              IconButton(
-                padding: EdgeInsets.all(0),
-                icon: helpIcon,
-                onPressed: () {
-                  showCustomToast(context, message: 'Info opened');
-                },
-              ),
-              ?isEmpty
-                  ? null
-                  : IconButton(
+            actions: isEmpty
+                ? null
+                : <Widget>[
+                    IconButton(
+                      padding: EdgeInsets.all(0),
+                      icon: searchIcon,
+                      onPressed: () {
+                        setState(() {
+                          // if (isSorting == true) isSorting = false;
+                          isSearching = !isSearching;
+                        });
+                        showCustomToast(context, message: 'Search opened');
+                      },
+                    ),
+                    IconButton(
                       icon: filterIcon,
                       onPressed: () {
                         setState(() {
@@ -207,7 +225,7 @@ class _MaintenanceState extends State<Maintenance> {
                         });
                       },
                     ),
-            ],
+                  ],
           ),
           body: content,
         );

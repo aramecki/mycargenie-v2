@@ -250,3 +250,39 @@ Widget customSortingPanel(
     ],
   );
 }
+
+// TODO: Complete search logic
+Widget customSearchingPanel(
+  BuildContext context,
+  // void Function(String text) onChange,
+) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    spacing: 12,
+    children: [
+      Expanded(
+        child: TextField(
+          decoration: InputDecoration(
+            prefixIcon: Padding(
+              padding: EdgeInsetsGeometry.only(left: 8),
+              child: searchIcon,
+            ),
+            // prefixIconConstraints: BoxConstraints(
+            //   maxHeight: 30.0,
+            //   maxWidth: 30.0,
+            // ),
+            prefixStyle: TextStyle(),
+            hintText: 'Cerca tra le manutenzioni',
+            floatingLabelBehavior: FloatingLabelBehavior.never,
+            counterText: '',
+          ),
+          keyboardType: TextInputType.text,
+          maxLength: 20,
+          textCapitalization: TextCapitalization.sentences,
+          autocorrect: true,
+          // onChanged: ,
+        ),
+      ),
+    ],
+  );
+}

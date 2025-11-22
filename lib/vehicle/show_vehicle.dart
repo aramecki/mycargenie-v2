@@ -156,7 +156,7 @@ class _ShowVehicleState extends State<ShowVehicle> {
               deleteVehicle(vehicleProvider, context, widget.editKey);
               Navigator.of(context).pop();
             },
-            icon: deleteIcon,
+            icon: deleteIcon(iconSize: 30),
           ),
         ],
       ),

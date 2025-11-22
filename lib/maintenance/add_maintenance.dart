@@ -203,15 +203,16 @@ class _AddMaintenanceState extends State<AddMaintenance> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
-              customTextField(
-                context,
-                hintText: 'Descrizione',
-                maxLines: 12,
-                maxLength: 500,
-                expands: true,
-                controller: _descriptionCtrl,
-                type: TextInputType.multiline,
-                action: TextInputAction.newline,
+              Expanded(
+                child: TextField(
+                  controller: _descriptionCtrl,
+                  keyboardType: TextInputType.multiline,
+                  textInputAction: TextInputAction.newline,
+                  minLines: 1,
+                  maxLines: 12,
+                  maxLength: 500,
+                  decoration: InputDecoration(hintText: 'Descrizione'),
+                ),
               ),
             ],
           ),
