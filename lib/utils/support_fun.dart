@@ -83,7 +83,7 @@ void deleteVehicle(
 }
 
 // Function to open the vehicle editing screen
-void openEditScreen(BuildContext context, dynamic key) {
+void openVehicleEditScreen(BuildContext context, dynamic key) {
   final Map<String, dynamic> vehicleMap = vehicleBox
       .get(key)!
       .cast<String, dynamic>();

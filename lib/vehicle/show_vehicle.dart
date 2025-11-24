@@ -134,7 +134,8 @@ class _ShowVehicleState extends State<ShowVehicle> {
                   Expanded(
                     child: buildAddButton(
                       context,
-                      onPressed: () => openEditScreen(context, widget.editKey),
+                      onPressed: () =>
+                          openVehicleEditScreen(context, widget.editKey),
                       text: 'Edit',
                     ),
                   ),

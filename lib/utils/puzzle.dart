@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:mycargenie_2/boxes.dart';
 import 'package:mycargenie_2/theme/icons.dart';
+import 'package:mycargenie_2/utils/sorting_funs.dart';
 
 ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showCustomToast(
   BuildContext context, {
@@ -254,7 +258,7 @@ Widget customSortingPanel(
 // TODO: Complete search logic
 Widget customSearchingPanel(
   BuildContext context,
-  // void Function(String text) onChange,
+  void Function(String, List<Map<String, dynamic>>) onChange,
 ) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.end,
@@ -262,16 +266,13 @@ Widget customSearchingPanel(
     children: [
       Expanded(
         child: TextField(
+          autofocus: true,
           decoration: InputDecoration(
-            prefixIcon: Padding(
-              padding: EdgeInsetsGeometry.only(left: 8),
-              child: searchIcon,
-            ),
-            // prefixIconConstraints: BoxConstraints(
-            //   maxHeight: 30.0,
-            //   maxWidth: 30.0,
+            // prefixIcon: Padding(
+            //   padding: EdgeInsetsGeometry.only(left: 8),
+            //   child: searchIcon,
             // ),
-            prefixStyle: TextStyle(),
+            // prefixStyle: TextStyle(),
             hintText: 'Cerca tra le manutenzioni',
             floatingLabelBehavior: FloatingLabelBehavior.never,
             counterText: '',
@@ -280,7 +281,19 @@ Widget customSearchingPanel(
           maxLength: 20,
           textCapitalization: TextCapitalization.sentences,
           autocorrect: true,
-          // onChanged: ,
+          onChanged: (value) {
+            if (value.isEmpty) {
+              onChange('', []);
+              return;
+            }
+
+            List<Map<String, dynamic>> result = searchByText(
+              maintenanceBox,
+              value,
+            );
+            log(result.toString());
+            onChange(value, result);
+          },
         ),
       ),
     ],

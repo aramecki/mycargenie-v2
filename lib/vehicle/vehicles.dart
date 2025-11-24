@@ -86,7 +86,7 @@ class _GarageState extends State<Garage> {
                                   slideableIcon(
                                     context,
                                     onPressed: (_) =>
-                                        openEditScreen(context, key),
+                                        openVehicleEditScreen(context, key),
                                     icon: editIcon,
                                     color: Colors.white,
                                   ),
