@@ -19,6 +19,7 @@ Widget maintenanceEventListTile(
         if (onEdit != null) onEdit();
       },
       contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+      // TODO: Set currency symbol to set one
       trailing: Text('${item['price']}€'),
       leadingAndTrailingTextStyle: TextStyle(fontSize: 16, color: Colors.grey),
       title: Text('${item['title']}'),
