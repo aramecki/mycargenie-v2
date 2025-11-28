@@ -553,6 +553,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{process} not completed.'**
   String processNotCompleted(String process);
+
+  /// Checkout my  text
+  ///
+  /// In en, this message translates to:
+  /// **'Checkout my '**
+  String get checkoutMy;
+
+  /// beloved  text
+  ///
+  /// In en, this message translates to:
+  /// **'beloved '**
+  String get beloved;
+
+  /// with  text
+  ///
+  /// In en, this message translates to:
+  /// **'with '**
+  String get withSpace;
+
+  /// powered by  text
+  ///
+  /// In en, this message translates to:
+  /// **'powered by {energy} '**
+  String poweredby(String energy);
+
+  /// with standard  text
+  ///
+  /// In en, this message translates to:
+  /// **'with standard {ecology}.'**
+  String withStandard(String ecology);
 }
 
 class _AppLocalizationsDelegate

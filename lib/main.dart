@@ -87,12 +87,11 @@ class MyCarGenie extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       home: const MyCarGenieMain(),
-      supportedLocales: const [Locale('en', ''), Locale('it', '')],
       localizationsDelegates: const [
         AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
+        ...GlobalMaterialLocalizations.delegates,
       ],
+      supportedLocales: const [Locale('en'), Locale('it')],
     );
   }
 }

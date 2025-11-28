@@ -260,4 +260,23 @@ class AppLocalizationsIt extends AppLocalizations {
   String processNotCompleted(String process) {
     return '$process non completato.';
   }
+
+  @override
+  String get checkoutMy => 'Dai un\'occhiata alla mia ';
+
+  @override
+  String get beloved => 'amata ';
+
+  @override
+  String get withSpace => 'con ';
+
+  @override
+  String poweredby(String energy) {
+    return 'alimentata a $energy ';
+  }
+
+  @override
+  String withStandard(String ecology) {
+    return 'con standard $ecology.';
+  }
 }

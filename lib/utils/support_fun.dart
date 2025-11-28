@@ -39,7 +39,7 @@ void openShowVehicle(BuildContext context, dynamic key) {
   ).push(MaterialPageRoute(builder: (_) => ShowVehicle(editKey: key)));
 }
 
-// Function to completely delete a vehicle entry from vehicleBox and its image
+// Function to completely delete a vehicle entry from vehicleBox, its image and all its events
 void deleteVehicle(
   VehicleProvider vehicleProvider,
   BuildContext context,

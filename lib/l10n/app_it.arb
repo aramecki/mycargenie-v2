@@ -417,6 +417,41 @@
       }
     },
     "description": "Backup/Restoration not completed. text"
+  },
+
+  "checkoutMy": "Dai un'occhiata alla mia ",
+  "@checkoutMy": {
+    "description": "Dai un'occhiata  text"
+  },
+
+  "beloved": "amata ",
+  "@beloved": {
+    "description": "amata  text"
+  },
+
+  "withSpace": "con ",
+  "@withSpace": {
+    "description": "con  text"
+  },
+
+  "poweredby": "alimentata a {energy} ",
+  "@poweredby": {
+    "placeholders": {
+      "energy": {
+        "type": "String"
+      }
+    },
+    "description": "alimentata a  text"
+  },
+
+  "withStandard": "con standard {ecology}.",
+  "@withStandard": {
+    "placeholders": {
+      "ecology": {
+        "type": "String"
+      }
+    },
+    "description": "con standard  text"
   }
 
 }

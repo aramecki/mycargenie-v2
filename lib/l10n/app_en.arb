@@ -417,6 +417,41 @@
       }
     },
     "description": "Backup/Restoration not completed. text"
+  },
+
+  "checkoutMy": "Checkout my ",
+  "@checkoutMy": {
+    "description": "Checkout my  text"
+  },
+
+  "beloved": "beloved ",
+  "@beloved": {
+    "description": "beloved  text"
+  },
+
+  "withSpace": "with ",
+  "@withSpace": {
+    "description": "with  text"
+  },
+
+  "poweredby": "powered by {energy} ",
+  "@poweredby": {
+    "placeholders": {
+      "energy": {
+        "type": "String"
+      }
+    },
+    "description": "powered by  text"
+  },
+
+  "withStandard": "with standard {ecology}.",
+  "@withStandard": {
+    "placeholders": {
+      "ecology": {
+        "type": "String"
+      }
+    },
+    "description": "with standard  text"
   }
 
 }

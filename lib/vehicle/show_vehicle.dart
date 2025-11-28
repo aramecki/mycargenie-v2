@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:mycargenie_2/boxes.dart';
 import 'package:mycargenie_2/home.dart';
 import 'package:mycargenie_2/l10n/app_localizations.dart';
@@ -168,10 +169,12 @@ class _ShowVehicleState extends State<ShowVehicle> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.deepOrange,
         child: shareIcon,
-        onPressed: () => showCustomToast(
-          context,
-          message: 'Share opened',
-        ), // TODO: Remove, for debugging
+        onPressed: () =>
+            _onShareWithResults(context, localizations, widget.editKey),
+        // showCustomToast(
+        //   context,
+        //   message: 'Share opened',
+        // ), // TODO: Remove, for debugging
       ),
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
@@ -182,4 +185,53 @@ class _ShowVehicleState extends State<ShowVehicle> {
       ),
     );
   }
+}
+
+void _onShareWithResults(
+  BuildContext context,
+  AppLocalizations localizations,
+  vehicleKey,
+) async {
+  final v = vehicleBox.get(vehicleKey);
+
+  final List<XFile> files = [XFile(v['assetImage'])];
+
+  String text = localizations.checkoutMy;
+
+  if (v['favorite']) {
+    text += localizations.beloved;
+  }
+
+  text += '${v['brand']} ${v['model']} ';
+
+  if (v['config'] != null) {
+    text += '${v['config']} ';
+  }
+
+  if (v['year'] != null) {
+    text += '${v['year'].toString()} ';
+  }
+
+  if (v['capacity'] != null || v['power'] != null || v['horse'] != null) {
+    text += localizations.withSpace;
+    if (v['capacity'] != null) {
+      text += '${localizations.numCc(v['capacity'])} ';
+    }
+    if (v['power'] != null) {
+      text += '${localizations.numKw(v['power'])} ';
+    }
+    if (v['horse'] != null) {
+      text += '${localizations.numCv(v['horse'])} ';
+    }
+  }
+
+  if (v['energy'] != null && v['energy'] != localizations.other) {
+    text += localizations.poweredby(v['energy']);
+  }
+
+  if (v['ecology'] != null && v['ecology'] != localizations.other) {
+    text += localizations.withStandard(v['ecology']);
+  }
+
+  await SharePlus.instance.share(ShareParams(text: text, files: files));
 }
