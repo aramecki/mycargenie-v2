@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:mycargenie_2/boxes.dart';
+import 'package:mycargenie_2/utils/boxes.dart';
 import 'package:mycargenie_2/home.dart';
 import 'package:mycargenie_2/l10n/app_localizations.dart';
 import 'package:mycargenie_2/maintenance/maintenance_misc.dart';
@@ -26,7 +26,6 @@ class _MaintenanceState extends State<Maintenance> {
   bool isSorting = false;
   bool isSearching = false;
 
-  // TODO: Add the case in which the user has no vehicle
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
@@ -112,7 +111,6 @@ class _MaintenanceState extends State<Maintenance> {
                           ? Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 16.0,
-                                // vertical: 30.0,
                               ),
                               child: customSortingPanel(context, (
                                 selectedSort,

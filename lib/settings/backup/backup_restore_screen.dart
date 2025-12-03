@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mycargenie_2/backup/backup.dart';
-import 'package:mycargenie_2/backup/restore.dart';
+import 'package:mycargenie_2/settings/backup/backup.dart';
+import 'package:mycargenie_2/settings/backup/restore.dart';
 import 'package:mycargenie_2/home.dart';
 import 'package:mycargenie_2/l10n/app_localizations.dart';
+import 'package:mycargenie_2/theme/text_styles.dart';
 import 'package:mycargenie_2/utils/puzzle.dart';
 import 'package:provider/provider.dart';
 
@@ -26,77 +27,34 @@ class _BackupRestoreScreenState extends State<BackupRestoreScreen> {
 
     final vehicleProvider = Provider.of<VehicleProvider>(context);
 
-    final content = Column(
-      // mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.max,
+    final content = ListView(
       children: [
-        const SizedBox(height: 100),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: OutlinedButton(
-                  style: ButtonStyle(
-                    textStyle: WidgetStatePropertyAll(TextStyle(fontSize: 20)),
-                  ),
-                  onPressed: () => _performBackup(localizations),
-                  child: Text(localizations.exportBackup),
-                ),
-              ),
-            ),
-          ],
+        ListTile(
+          title: Text(
+            localizations.exportBackup,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          ),
+          subtitle: _statusBackup != '' ? Text(_statusBackup) : null,
+          trailing: _isBackingUp ? sizedProgressIndicator() : null,
+          onTap: () => _performBackup(localizations),
         ),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 10,
-          children: [
-            if (_isBackingUp)
-              SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(),
-              ),
-            Text(_statusBackup, style: TextStyle(fontSize: 18)),
-          ],
+        Divider(height: 20),
+        ListTile(
+          title: Text(
+            localizations.restoreBackup,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          ),
+          subtitle: _statusRestore != '' ? Text(_statusRestore) : null,
+          trailing: _isRestoring ? sizedProgressIndicator() : null,
+          onTap: () => _performRestore(vehicleProvider, localizations),
         ),
-
-        const SizedBox(height: 30),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: OutlinedButton(
-                  style: ButtonStyle(
-                    textStyle: WidgetStatePropertyAll(TextStyle(fontSize: 20)),
-                  ),
-                  onPressed: () =>
-                      _performRestore(vehicleProvider, localizations),
-                  child: Text(localizations.restoreBackup),
-                ),
-              ),
-            ),
-          ],
-        ),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 10,
-          children: [
-            if (_isRestoring)
-              SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(),
-              ),
-            Text(_statusRestore, style: TextStyle(fontSize: 18)),
-          ],
+        Padding(
+          padding: EdgeInsetsGeometry.symmetric(horizontal: 16, vertical: 34),
+          child: Text(
+            localizations.backupFileWontContainImage,
+            textAlign: TextAlign.center,
+            style: bottomMessageStyle,
+          ),
         ),
       ],
     );
@@ -159,4 +117,8 @@ class _BackupRestoreScreenState extends State<BackupRestoreScreen> {
       }
     });
   }
+}
+
+Widget sizedProgressIndicator() {
+  return SizedBox(height: 20, width: 20, child: CircularProgressIndicator());
 }

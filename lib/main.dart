@@ -3,18 +3,71 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mycargenie_2/l10n/app_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:mycargenie_2/theme/theme.dart';
+import 'package:mycargenie_2/settings/settings_logics.dart';
+import 'package:mycargenie_2/theme/theme_light.dart';
+import 'package:mycargenie_2/theme/theme_dark.dart';
 import 'package:provider/provider.dart';
 import 'vehicle/vehicles.dart';
 import 'home.dart';
 import 'maintenance/maintenance.dart';
-import 'refueling.dart';
-import 'invoices.dart';
-import 'boxes.dart';
+import 'refueling/refueling.dart';
+import 'invoices/invoices.dart';
+import 'utils/boxes.dart';
 import 'startup_image_loader_debug.dart';
+
+// class SettingsProvider with ChangeNotifier {
+//   final SettingsService _service = SettingsService();
+//   final Locale _systemLocale; // Stores the system locale captured in main()
+//   SettingsModel? _settings;
+
+//   SettingsModel? get settings => _settings;
+//   Locale? get locale => _settings?.locale;
+//   ThemeMode? get themeMode => _settings?.themeMode;
+
+//   // CRITICAL CHANGE: Accept the system locale in the constructor
+//   SettingsProvider(this._systemLocale) {
+//     _loadInitialSettings();
+//   }
+
+//   // Initialization: Loads settings from the service
+//   Future<void> _loadInitialSettings() async {
+//     // CRITICAL CHANGE: Pass the system locale to the service
+//     _settings = await _service.loadSettings(_systemLocale);
+//     notifyListeners();
+//   }
+
+//   // Setter for Locale
+//   Future<void> setLocale(Locale newLocale) async {
+//     if (_settings == null ||
+//         newLocale.languageCode == _settings!.locale.languageCode) {
+//       return;
+//     }
+
+//     await _service.saveLocale(newLocale);
+
+//     _settings = SettingsModel(
+//       locale: newLocale,
+//       themeMode: _settings!.themeMode,
+//     );
+
+//     notifyListeners();
+//   }
+
+//   // Setter for Theme Mode
+//   Future<void> setThemeMode(ThemeMode newMode) async {
+//     if (_settings == null || newMode == _settings!.themeMode) return;
+
+//     await _service.saveThemeMode(newMode);
+
+//     _settings = SettingsModel(locale: _settings!.locale, themeMode: newMode);
+
+//     notifyListeners();
+//   }
+// }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final systemLocale = WidgetsBinding.instance.platformDispatcher.locale;
 
   await Hive.initFlutter();
 
@@ -70,8 +123,11 @@ void main() async {
   }
 
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => VehicleProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => VehicleProvider()),
+        ChangeNotifierProvider(create: (_) => SettingsProvider(systemLocale)),
+      ],
       child: MyCarGenie(),
     ),
   );
@@ -82,11 +138,21 @@ class MyCarGenie extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final settingsProvider = context.watch<SettingsProvider>();
+
+    if (settingsProvider.settings == null) {
+      return const MaterialApp(
+        home: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return MaterialApp(
       //title: 'MyCarGenie2',
+      themeMode: settingsProvider.themeMode,
       theme: lightTheme,
       darkTheme: darkTheme,
       home: const MyCarGenieMain(),
+      locale: settingsProvider.locale,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         ...GlobalMaterialLocalizations.delegates,

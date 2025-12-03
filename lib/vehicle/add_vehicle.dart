@@ -12,7 +12,7 @@ import 'package:mycargenie_2/utils/year_picker.dart';
 import 'package:provider/provider.dart';
 import '../utils/lists.dart';
 import '../utils/puzzle.dart';
-import '../boxes.dart';
+import '../utils/boxes.dart';
 import '../home.dart';
 
 class AddVehicle extends StatefulWidget {

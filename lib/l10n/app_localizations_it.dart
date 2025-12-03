@@ -180,6 +180,11 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
+  String numCurrencyOnUnits(String num, String currency, String unit) {
+    return '$num$currency/$unit';
+  }
+
+  @override
   String get latestEvents => 'Ultimi eventi:';
 
   @override
@@ -240,13 +245,13 @@ class AppLocalizationsIt extends AppLocalizations {
   String get restorationUpper => 'Ripristino';
 
   @override
-  String get exportBackup => 'Esporta Backup';
+  String get exportBackup => 'Esporta backup';
 
   @override
-  String get restoreBackup => 'Ripristina Backup';
+  String get restoreBackup => 'Ripristina backup';
 
   @override
-  String get backupAndRestore => 'Backup e Ripristino';
+  String get backupAndRestore => 'Backup e ripristino';
 
   @override
   String get creatingBackupFile => 'Creo file di backup...';
@@ -264,6 +269,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String processNotCompleted(String process) {
     return '$process non completato.';
   }
+
+  @override
+  String get backupFileWontContainImage =>
+      'Il file di backup non includerà immagini personalizzate.';
 
   @override
   String get checkoutMy => 'Dai un\'occhiata alla mia ';
@@ -301,4 +310,41 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get paying => 'pagando ';
+
+  @override
+  String get language => 'Lingua';
+
+  @override
+  String get country => 'Regione';
+
+  @override
+  String get currency => 'Valuta';
+
+  @override
+  String get theme => 'Tema';
+
+  @override
+  String get gotAFeedback => 'Hai un feedback?';
+
+  @override
+  String get about => 'Informazioni';
+
+  @override
+  String get languageSettings => 'Impostazioni Lingua';
+
+  @override
+  String get themeSettings => 'Impostazioni Tema';
+
+  @override
+  String get currencySettings => 'Impostazioni Valuta';
+
+  @override
+  String get followSystemTheme => 'Segui impostazioni di sistema';
+
+  @override
+  String get darkMode => 'Modalità scura';
+
+  @override
+  String get homeNoEventsMessage =>
+      'Gli ultimi eventi del veicolo selezionato saranno mostrati in questa pagina.';
 }

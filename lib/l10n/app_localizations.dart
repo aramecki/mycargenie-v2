@@ -392,6 +392,12 @@ abstract class AppLocalizations {
   /// **'{num}{currency}'**
   String numCurrency(String num, String currency);
 
+  /// num currency/unit Ex. 5€/l
+  ///
+  /// In en, this message translates to:
+  /// **'{num}{currency}/{unit}'**
+  String numCurrencyOnUnits(String num, String currency, String unit);
+
   /// Latest Events: text shown in home screen
   ///
   /// In en, this message translates to:
@@ -512,22 +518,22 @@ abstract class AppLocalizations {
   /// **'Restoration'**
   String get restorationUpper;
 
-  /// Export Backup text
+  /// Export backup text
   ///
   /// In en, this message translates to:
-  /// **'Export Backup'**
+  /// **'Export backup'**
   String get exportBackup;
 
-  /// Restore Backup text
+  /// Restore backup text
   ///
   /// In en, this message translates to:
-  /// **'Restore Backup'**
+  /// **'Restore backup'**
   String get restoreBackup;
 
-  /// Backup and Restore text
+  /// Backup and bestore text
   ///
   /// In en, this message translates to:
-  /// **'Backup and Restore'**
+  /// **'Backup and restore'**
   String get backupAndRestore;
 
   /// Creating backup file... text
@@ -559,6 +565,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{process} not completed.'**
   String processNotCompleted(String process);
+
+  /// The backup file won't include custom images. text
+  ///
+  /// In en, this message translates to:
+  /// **'The backup file won\'t include custom images.'**
+  String get backupFileWontContainImage;
 
   /// Checkout my  text
   ///
@@ -625,6 +637,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'paying '**
   String get paying;
+
+  /// Language text
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// Country text
+  ///
+  /// In en, this message translates to:
+  /// **'Country'**
+  String get country;
+
+  /// Currency text
+  ///
+  /// In en, this message translates to:
+  /// **'Currency'**
+  String get currency;
+
+  /// Theme text
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get theme;
+
+  /// Got a feedback? text
+  ///
+  /// In en, this message translates to:
+  /// **'Got a feedback?'**
+  String get gotAFeedback;
+
+  /// About text
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
+
+  /// Language Settings text
+  ///
+  /// In en, this message translates to:
+  /// **'Language Settings'**
+  String get languageSettings;
+
+  /// Theme Settings text
+  ///
+  /// In en, this message translates to:
+  /// **'Theme Settings'**
+  String get themeSettings;
+
+  /// Currency Settings text
+  ///
+  /// In en, this message translates to:
+  /// **'Currency Settings'**
+  String get currencySettings;
+
+  /// Follow system theme text
+  ///
+  /// In en, this message translates to:
+  /// **'Follow system theme'**
+  String get followSystemTheme;
+
+  /// Dark mode text
+  ///
+  /// In en, this message translates to:
+  /// **'Dark mode'**
+  String get darkMode;
+
+  /// The latest events of the selected vehicle will be shown on this page. text
+  ///
+  /// In en, this message translates to:
+  /// **'The latest events of the selected vehicle will be shown on this page.'**
+  String get homeNoEventsMessage;
 }
 
 class _AppLocalizationsDelegate

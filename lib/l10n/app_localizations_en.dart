@@ -177,6 +177,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String numCurrencyOnUnits(String num, String currency, String unit) {
+    return '$num$currency/$unit';
+  }
+
+  @override
   String get latestEvents => 'Latest events:';
 
   @override
@@ -237,13 +242,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get restorationUpper => 'Restoration';
 
   @override
-  String get exportBackup => 'Export Backup';
+  String get exportBackup => 'Export backup';
 
   @override
-  String get restoreBackup => 'Restore Backup';
+  String get restoreBackup => 'Restore backup';
 
   @override
-  String get backupAndRestore => 'Backup and Restore';
+  String get backupAndRestore => 'Backup and restore';
 
   @override
   String get creatingBackupFile => 'Creating backup file...';
@@ -261,6 +266,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String processNotCompleted(String process) {
     return '$process not completed.';
   }
+
+  @override
+  String get backupFileWontContainImage =>
+      'The backup file won\'t include custom images.';
 
   @override
   String get checkoutMy => 'Checkout my ';
@@ -298,4 +307,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get paying => 'paying ';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get country => 'Country';
+
+  @override
+  String get currency => 'Currency';
+
+  @override
+  String get theme => 'Theme';
+
+  @override
+  String get gotAFeedback => 'Got a feedback?';
+
+  @override
+  String get about => 'About';
+
+  @override
+  String get languageSettings => 'Language Settings';
+
+  @override
+  String get themeSettings => 'Theme Settings';
+
+  @override
+  String get currencySettings => 'Currency Settings';
+
+  @override
+  String get followSystemTheme => 'Follow system theme';
+
+  @override
+  String get darkMode => 'Dark mode';
+
+  @override
+  String get homeNoEventsMessage =>
+      'The latest events of the selected vehicle will be shown on this page.';
 }

@@ -86,8 +86,66 @@ HugeIcon editIcon = HugeIcon(
   color: Colors.white,
 );
 
+// Search Icon
 HugeIcon searchIcon = HugeIcon(
   icon: HugeIcons.strokeRoundedSearch01,
   size: 30,
   color: Colors.deepOrange,
+);
+
+// Circle Check Icon
+HugeIcon checkIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedCheckmarkCircle01,
+  color: Colors.deepOrange,
+  strokeWidth: 2,
+  size: 30,
+);
+
+// Language Icon
+HugeIcon languageIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedLanguageSquare,
+  size: 28,
+  strokeWidth: 1.5,
+);
+
+// Region Icon
+HugeIcon regionIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedFlag02,
+  size: 28,
+  strokeWidth: 1.5,
+);
+
+// Currency Icon
+HugeIcon currencyIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedMoney01,
+  size: 28,
+  strokeWidth: 1.5,
+);
+
+// Theme Icon
+HugeIcon themeIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedColors,
+  size: 28,
+  strokeWidth: 1.5,
+);
+
+// Backup and Restore Icon
+HugeIcon backupAndRestoreIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedDownload03,
+  size: 28,
+  strokeWidth: 1.5,
+);
+
+// Feedback Icon
+HugeIcon feedbackIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedComment01,
+  size: 28,
+  strokeWidth: 1.5,
+);
+
+// Info Icon
+HugeIcon infoIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedAlertSquare,
+  size: 28,
+  strokeWidth: 1.5,
 );

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mycargenie_2/l10n/app_localizations.dart';
 import 'package:mycargenie_2/theme/icons.dart';
-import 'package:mycargenie_2/theme/misc.dart';
 import 'package:mycargenie_2/utils/support_fun.dart';
+import 'package:mycargenie_2/vehicle/vehicle_info.dart';
+import 'package:mycargenie_2/vehicle/vehicles_misc.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'add_vehicle.dart';
-import '../boxes.dart';
+import '../utils/boxes.dart';
 import '../utils/puzzle.dart';
 import '../home.dart';
 
@@ -95,54 +96,12 @@ class _GarageState extends State<Garage> {
                                   ),
                                 ],
                               ),
-                              child: SizedBox(
-                                child: ListTile(
-                                  enabled: true,
-                                  //selected: _selected,
-                                  onTap: () => openShowVehicle(context, key),
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0,
-                                  ),
-                                  title: Text(
-                                    '${item['brand']} ${item['model']}',
-                                    style: titleTextStyle,
-                                  ),
-                                  subtitle: Row(
-                                    children: [
-                                      Text(
-                                        item['power'] != null
-                                            ? '${localizations.numKw(item['power'])} '
-                                            : '',
-                                        style: subtitleTextStyle,
-                                      ),
-                                      Text(
-                                        item['horse'] != null
-                                            ? '${localizations.numCv(item['horse'])} '
-                                            : '',
-                                        style: subtitleTextStyle,
-                                      ),
-                                      Text(
-                                        item['capacity'] != null
-                                            ? localizations.numCc(
-                                                item['capacity'],
-                                              )
-                                            : '',
-                                        style: subtitleTextStyle,
-                                      ),
-                                    ],
-                                  ),
-                                  selectedColor: Colors.blue,
-                                  trailing: favoriteIconButton(
-                                    isEnabled(key, vehicleProvider.favoriteKey),
-                                    () {
-                                      setState(() {
-                                        changeFavorite(key);
-                                        vehicleProvider.favoriteKey = key;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
+                              child: vehiclesListTile(context, item, key, () {
+                                setState(() {
+                                  changeFavorite(key);
+                                  vehicleProvider.favoriteKey = key;
+                                });
+                              }),
                             ),
                           );
                         },
@@ -187,13 +146,9 @@ class _GarageState extends State<Garage> {
               IconButton(
                 icon: helpIcon,
                 onPressed: () {
-                  // Navigator.of(
-                  //   context,
-                  // ).push(MaterialPageRoute(builder: (_) => const Garage()));
-                  showCustomToast(
-                    context,
-                    message: 'Info opened',
-                  ); // TODO: Remove, for debugging
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const VehicleInfo()),
+                  );
                 },
               ),
             ],
@@ -202,19 +157,5 @@ class _GarageState extends State<Garage> {
         );
       },
     );
-  }
-
-  Widget? favoriteIconButton(bool? isEnabled, VoidCallback onChanged) {
-    return IconButton(
-      icon: isEnabled == true ? activeStarIcon : emptyStarIcon,
-      onPressed: isEnabled == true ? null : onChanged,
-    );
-  }
-
-  bool isEnabled(int itemId, int? favoriteItemId) {
-    if (itemId == favoriteItemId) {
-      return true;
-    }
-    return false;
   }
 }

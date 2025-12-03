@@ -2,15 +2,16 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mycargenie_2/get_latest_events.dart';
 import 'package:mycargenie_2/l10n/app_localizations.dart';
-import 'package:mycargenie_2/settings.dart';
+import 'package:mycargenie_2/settings/settings.dart';
 import 'package:mycargenie_2/theme/icons.dart';
 import 'package:mycargenie_2/utils/puzzle.dart';
 import 'package:mycargenie_2/utils/support_fun.dart';
 import 'utils/vehicles_dropdown.dart';
 import 'vehicle/vehicles.dart';
 import 'package:provider/provider.dart';
-import 'boxes.dart';
+import 'utils/boxes.dart';
 
 class VehicleProvider with ChangeNotifier {
   int? vehicleToLoad;
@@ -70,6 +71,18 @@ class _HomePageState extends State<Home> {
 
     log('Starting loading: ${vehicleBox.get(vehicleProvider.vehicleToLoad)} ');
 
+    Map<dynamic, dynamic>? latestMaintenance = getLatestEvent(
+      true,
+      vehicleProvider.vehicleToLoad,
+    );
+
+    // Map<dynamic, dynamic>? latestRefueling = getLatestEvent(
+    //   false,
+    //   vehicleProvider.vehicleToLoad,
+    // );
+
+    log('Latest maintenance is $latestMaintenance');
+
     return ValueListenableBuilder(
       valueListenable: vehicleBox.listenable(),
       builder: (context, Box box, _) {
@@ -123,32 +136,65 @@ class _HomePageState extends State<Home> {
                     ],
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsGeometry.only(left: 16),
-                        child: Text(localizations.latestEvents),
+                  if (latestMaintenance == null
+                  // && latestRefueling == null
+                  )
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    Padding(
+                      padding: EdgeInsetsGeometry.symmetric(
+                        vertical: 32,
+                        horizontal: 16,
                       ),
-                    ],
-                  ),
+                      child: Text(
+                        localizations.homeNoEventsMessage,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
 
-                  // TODO: Remove precompiled, just for debugging
-                  homeRowBox(
-                    context,
-                    isRefueling: false,
-                    title: 'Sostituzione pasticche freni',
-                    date: '23/01/2025',
-                    place: 'Officine Galli',
-                  ),
-                  homeRowBox(
-                    context,
-                    isRefueling: true,
-                    date: '11/22/1963',
-                    place: 'Eni Giugliano',
-                    price: '20€',
-                    priceForUnit: '1,78€/l',
-                  ),
+                  //   ],
+                  // ),
+                  if (latestMaintenance != null
+                  // || latestRefueling != null
+                  )
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsGeometry.only(left: 16),
+                          child: Text(localizations.latestEvents),
+                        ),
+                      ],
+                    ),
+
+                  if (latestMaintenance != null)
+                    homeRowBox(
+                      context,
+                      eventKey: latestMaintenance['key'],
+                      isRefueling: false,
+                      title: latestMaintenance['value']['title'],
+                      date: latestMaintenance['value']['date'],
+                      place: latestMaintenance['value']['place'],
+                    ),
+                  // if (latestRefueling != null)
+                  //   homeRowBox(
+                  //     context,
+                  //     eventKey: latestRefueling['key'],
+                  //     isRefueling: false,
+                  //     date: latestRefueling['value']['date'],
+                  //     place: latestRefueling['value']['place'],
+                  //     price: latestRefueling['value']['price'],
+                  //     priceForUnit: latestRefueling['value']['priceForUnit'],
+                  //   ),
+                  // homeRowBox(
+                  //   context,
+                  //   isRefueling: true,
+                  //   date: '11/22/1963',
+                  //   place: 'Eni Giugliano',
+                  //   price: '20€',
+                  //   priceForUnit: '1,78€/l',
+                  // ),
                 ],
               )
             : Row(

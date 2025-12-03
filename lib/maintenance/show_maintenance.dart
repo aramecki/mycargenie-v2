@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:mycargenie_2/boxes.dart';
+import 'package:mycargenie_2/settings/currency_settings.dart';
+import 'package:mycargenie_2/settings/settings_logics.dart';
+import 'package:mycargenie_2/utils/boxes.dart';
 import 'package:mycargenie_2/l10n/app_localizations.dart';
 import 'package:mycargenie_2/maintenance/maintenance_misc.dart';
 import 'package:mycargenie_2/theme/icons.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../utils/puzzle.dart';
 
@@ -21,6 +24,7 @@ class _ShowMaintenanceState extends State<ShowMaintenance> {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
+    final settingsProvider = context.read<SettingsProvider>();
 
     final content = ValueListenableBuilder(
       valueListenable: maintenanceBox.listenable(keys: [widget.editKey]),
@@ -28,6 +32,8 @@ class _ShowMaintenanceState extends State<ShowMaintenance> {
         final e = box.get(widget.editKey);
 
         if (e == null) return SizedBox();
+
+        String parsedPrice = parseShowedPrice(e['price']);
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -56,7 +62,7 @@ class _ShowMaintenanceState extends State<ShowMaintenance> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  if (e['maintenanceType'] != null)
+                  if (e['maintenanceType'] != '')
                     Text(e['maintenanceType'], style: TextStyle(fontSize: 18)),
                   if (e['place'] != null)
                     Text(e['place'].toString(), style: TextStyle(fontSize: 18)),
@@ -64,7 +70,7 @@ class _ShowMaintenanceState extends State<ShowMaintenance> {
               ),
             ),
 
-            if (e['description'] != null)
+            if (e['description'] != '')
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
@@ -73,7 +79,7 @@ class _ShowMaintenanceState extends State<ShowMaintenance> {
                 ),
               ),
 
-            SizedBox(height: 44),
+            if (e['description'] != '') SizedBox(height: 44),
 
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -104,10 +110,12 @@ class _ShowMaintenanceState extends State<ShowMaintenance> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  // TODO: Set currency symbol to set one
                   if (e['price'] != '0.00')
                     Text(
-                      localizations.numCurrency(e['price'], "€"),
+                      localizations.numCurrency(
+                        parsedPrice,
+                        settingsProvider.currency!,
+                      ),
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
@@ -154,9 +162,12 @@ class _ShowMaintenanceState extends State<ShowMaintenance> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.deepOrange,
         child: shareIcon,
-        // TODO: Code real sharing
-        onPressed: () =>
-            _shareMaintenance(context, localizations, widget.editKey),
+        onPressed: () => _shareMaintenance(
+          context,
+          localizations,
+          widget.editKey,
+          settingsProvider.currency!,
+        ),
       ),
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
@@ -173,6 +184,7 @@ void _shareMaintenance(
   BuildContext context,
   AppLocalizations localizations,
   maintenanceKey,
+  String currency,
 ) async {
   final v = maintenanceBox.get(maintenanceKey);
   final vehicle = vehicleBox.get(v['vehicleKey']);
@@ -192,11 +204,11 @@ void _shareMaintenance(
 
   if (v['price'] != null) {
     text +=
-        '${localizations.paying}${localizations.numCurrency(v['price'], '€')} ';
+        '${localizations.paying}${localizations.numCurrency(v['price'], currency)} ';
   }
 
-  if (v['description'] != null) {
-    text += '"${v['description']}" ';
+  if (v['description'] != '') {
+    text += '"${v['description']}"';
   }
 
   await SharePlus.instance.share(ShareParams(text: text));

@@ -279,6 +279,16 @@
   "description": "num currency Ex. 5€"
   },
 
+  "numCurrencyOnUnits": "{num}{currency}/{unit}",
+  "@numCurrencyOnUnits": {
+    "placeholders": {
+      "num": {"type": "String"},
+      "currency": {"type": "String"},
+      "unit": {"type": "String"}
+    },
+  "description": "num currency/unit Ex. 5€/l"
+  },
+
   "latestEvents": "Ultimi eventi:",
   "@latestEvents": {
     "description": "Latest Events: text shown in home screen"
@@ -379,17 +389,17 @@
     "description": "Ripristino text"
   },
 
-  "exportBackup": "Esporta Backup",
+  "exportBackup": "Esporta backup",
   "@exportBackup": {
-    "description": "Export Backup text"
+    "description": "Export backup text"
   },
 
-  "restoreBackup": "Ripristina Backup",
+  "restoreBackup": "Ripristina backup",
   "@restoreBackup": {
-    "description": "Restore Backup text"
+    "description": "Restore backup text"
   },
 
-  "backupAndRestore": "Backup e Ripristino",
+  "backupAndRestore": "Backup e ripristino",
   "@backupAndRestore": {
     "description": "Backup and Restore text"
   },
@@ -422,6 +432,11 @@
       }
     },
     "description": "Backup/Restoration not completed. text"
+  },
+
+  "backupFileWontContainImage": "Il file di backup non includerà immagini personalizzate.",
+  "@backupFileWontContainImage": {
+    "description": "Il file di backup non includerà immagini personalizzate. text"
   },
 
   "checkoutMy": "Dai un'occhiata alla mia ",
@@ -487,6 +502,66 @@
   "paying": "pagando ",
   "@paying": {
     "description": "pagando  text"
+  },
+
+  "language": "Lingua",
+  "@language": {
+    "description": "Lingua text"
+  },
+
+  "country": "Regione",
+  "@country": {
+    "description": "Regione text"
+  },
+
+  "currency": "Valuta",
+  "@currency": {
+    "description": "Valuta text"
+  },
+
+  "theme": "Tema",
+  "@theme": {
+    "description": "Tema text"
+  },
+
+  "gotAFeedback": "Hai un feedback?",
+  "@gotAFeedback": {
+    "description": "Hai un feedback? text"
+  },
+
+  "about": "Informazioni",
+  "@about": {
+    "description": "Informazioni text"
+  },
+
+  "languageSettings": "Impostazioni Lingua",
+  "@languageSettings": {
+    "description": "Impostazioni Lingua text"
+  },
+
+  "themeSettings": "Impostazioni Tema",
+  "@themeSettings": {
+    "description": "Impostazioni Tema text"
+  },
+
+  "currencySettings": "Impostazioni Valuta",
+  "@currencySettings": {
+    "description": "Impostazioni Valuta text"
+  },
+
+  "followSystemTheme": "Segui impostazioni di sistema",
+  "@followSystemTheme": {
+    "description": "Segui impostazioni di sistema text"
+  },
+
+  "darkMode": "Modalità scura",
+  "@darkMode": {
+    "description": "Modalità scura text"
+  },
+
+  "homeNoEventsMessage": "Gli ultimi eventi del veicolo selezionato saranno mostrati in questa pagina.",
+  "@homeNoEventsMessage": {
+    "description": "Gli ultimi eventi del veicolo selezionato saranno mostrati in questa pagina. text"
   }
 
 }

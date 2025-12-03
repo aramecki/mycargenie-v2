@@ -2,12 +2,15 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:mycargenie_2/boxes.dart';
+import 'package:mycargenie_2/maintenance/maintenance_misc.dart';
+import 'package:mycargenie_2/settings/settings_logics.dart';
+import 'package:mycargenie_2/utils/boxes.dart';
 import 'package:mycargenie_2/l10n/app_localizations.dart';
 import 'package:mycargenie_2/maintenance/add_maintenance.dart';
 import 'package:mycargenie_2/refueling/add_refueling.dart';
 import 'package:mycargenie_2/theme/icons.dart';
 import 'package:mycargenie_2/utils/sorting_funs.dart';
+import 'package:provider/provider.dart';
 
 ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showCustomToast(
   BuildContext context, {
@@ -45,58 +48,6 @@ Widget buildAddButton(
     child: Text(text, style: TextStyle(fontSize: 20)),
   );
 }
-
-// Fun to parse strings into ints removing chars
-// int? parseDigits(String input) {
-//   final digitsOnly = input.replaceAll(RegExp(r'[^0-9]'), '');
-//   return int.tryParse(digitsOnly);
-// }
-
-// class CustomCheckbox extends StatefulWidget {
-//   final ValueChanged<bool> onChanged;
-
-//   const CustomCheckbox({super.key, required this.onChanged});
-
-//   @override
-//   State<CustomCheckbox> createState() => _CustomCheckboxState();
-// }
-
-// class _CustomCheckboxState extends State<CustomCheckbox> {
-//   late bool _isSelected = false;
-
-//   // @override
-//   // void initState() {
-//   //   super.initState();
-//   //   _isSelected = widget.initialValue;
-//   // }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       mainAxisSize: MainAxisSize.max,
-//       children: [
-//         Expanded(
-//           child: Checkbox(
-//             shape: CircleBorder(),
-//             value: _isSelected,
-//             onChanged: (bool? newValue) {
-//               if (newValue == null) return;
-//               setState(() {
-//                 _isSelected = newValue;
-//               });
-//               widget.onChanged(_isSelected);
-//             },
-//           ),
-//         ),
-//         Text(
-//           'Favorite',
-//           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-//         ),
-//       ],
-//     );
-//   }
-// }
 
 // Custom switch
 class CustomSwitch extends StatelessWidget {
@@ -163,52 +114,81 @@ Widget slideableIcon(
 Widget homeRowBox(
   BuildContext context, {
   //   required VoidCallback onPressed,
+  required int eventKey,
   required bool isRefueling,
-  required String date,
+  required DateTime date,
   String? title,
   String? place,
   String? price,
   String? priceForUnit,
 }) {
+  final settingsProvider = context.read<SettingsProvider>();
+
+  final localizations = AppLocalizations.of(context)!;
   TextStyle textStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.w500);
 
   return Padding(
     padding: EdgeInsetsGeometry.symmetric(vertical: 8, horizontal: 8),
-    child: Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.deepOrange, width: 2),
-        borderRadius: BorderRadius.circular(50),
-      ),
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 30),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: isRefueling
-                ? [
-                    Text(date, style: textStyle),
-                    if (price != null) Text(price, style: textStyle),
-                  ]
-                : [Text(title!, style: textStyle)],
-          ),
+    child: GestureDetector(
+      onTap: () {
+        openEventShowScreen(context, eventKey);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.deepOrange, width: 2),
+          borderRadius: BorderRadius.circular(50),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: isRefueling
+                  ? [
+                      Text(
+                        localizations.ggMmAaaa(date.day, date.month, date.year),
+                        style: textStyle,
+                      ),
+                      if (price != null)
+                        Text(
+                          localizations.numCurrency(
+                            price,
+                            settingsProvider.currency!,
+                          ),
+                          style: textStyle,
+                        ),
+                    ]
+                  : [Text(title!, style: textStyle)],
+            ),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: isRefueling
-                ? [
-                    if (place != null) Text(place, style: textStyle),
-                    if (priceForUnit != null)
-                      Text(priceForUnit, style: textStyle),
-                  ]
-                : [
-                    if (place != null) Text(place, style: textStyle),
-                    Text(date, style: textStyle),
-                  ],
-          ),
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: isRefueling
+                  ? [
+                      if (place != null) Text(place, style: textStyle),
+                      if (priceForUnit != null)
+                        Text(
+                          localizations.numCurrencyOnUnits(
+                            priceForUnit,
+                            settingsProvider.currency!,
+                            'l',
+                          ),
+                          style: textStyle,
+                        ), //TODO: change unit to set one
+                    ]
+                  : [
+                      if (place != null) Text(place, style: textStyle),
+                      Text(
+                        localizations.ggMmAaaa(date.day, date.month, date.year),
+                        style: textStyle,
+                      ),
+                    ],
+            ),
+          ],
+        ),
       ),
     ),
   );
@@ -260,7 +240,6 @@ Widget customSortingPanel(
   );
 }
 
-// TODO: Complete search logic
 Widget customSearchingPanel(
   BuildContext context,
   void Function(String, List<Map<String, dynamic>>) onChange,

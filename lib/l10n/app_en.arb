@@ -279,6 +279,16 @@
   "description": "num currency Ex. 5€"
   },
 
+  "numCurrencyOnUnits": "{num}{currency}/{unit}",
+  "@numCurrencyOnUnits": {
+    "placeholders": {
+      "num": {"type": "String"},
+      "currency": {"type": "String"},
+      "unit": {"type": "String"}
+    },
+  "description": "num currency/unit Ex. 5€/l"
+  },
+
   "latestEvents": "Latest events:",
   "@latestEvents": {
     "description": "Latest Events: text shown in home screen"
@@ -379,19 +389,19 @@
     "description": "Restoration text"
   },
 
-  "exportBackup": "Export Backup",
+  "exportBackup": "Export backup",
   "@exportBackup": {
-    "description": "Export Backup text"
+    "description": "Export backup text"
   },
 
-  "restoreBackup": "Restore Backup",
+  "restoreBackup": "Restore backup",
   "@restoreBackup": {
-    "description": "Restore Backup text"
+    "description": "Restore backup text"
   },
 
-  "backupAndRestore": "Backup and Restore",
+  "backupAndRestore": "Backup and restore",
   "@backupAndRestore": {
-    "description": "Backup and Restore text"
+    "description": "Backup and bestore text"
   },
 
   "creatingBackupFile": "Creating backup file...",
@@ -422,6 +432,11 @@
       }
     },
     "description": "Backup/Restoration not completed. text"
+  },
+
+  "backupFileWontContainImage": "The backup file won't include custom images.",
+  "@backupFileWontContainImage": {
+    "description": "The backup file won't include custom images. text"
   },
 
   "checkoutMy": "Checkout my ",
@@ -487,6 +502,66 @@
   "paying": "paying ",
   "@paying": {
     "description": "paying  text"
+  },
+
+  "language": "Language",
+  "@language": {
+    "description": "Language text"
+  },
+
+  "country": "Country",
+  "@country": {
+    "description": "Country text"
+  },
+
+  "currency": "Currency",
+  "@currency": {
+    "description": "Currency text"
+  },
+
+  "theme": "Theme",
+  "@theme": {
+    "description": "Theme text"
+  },
+
+  "gotAFeedback": "Got a feedback?",
+  "@gotAFeedback": {
+    "description": "Got a feedback? text"
+  },
+
+  "about": "About",
+  "@about": {
+    "description": "About text"
+  },
+
+  "languageSettings": "Language Settings",
+  "@languageSettings": {
+    "description": "Language Settings text"
+  },
+
+  "themeSettings": "Theme Settings",
+  "@themeSettings": {
+    "description": "Theme Settings text"
+  },
+
+  "currencySettings": "Currency Settings",
+  "@currencySettings": {
+    "description": "Currency Settings text"
+  },
+
+  "followSystemTheme": "Follow system theme",
+  "@followSystemTheme": {
+    "description": "Follow system theme text"
+  },
+
+  "darkMode": "Dark mode",
+  "@darkMode": {
+    "description": "Dark mode text"
+  },
+
+  "homeNoEventsMessage": "The latest events of the selected vehicle will be shown on this page.",
+  "@homeNoEventsMessage": {
+    "description": "The latest events of the selected vehicle will be shown on this page. text"
   }
 
 }

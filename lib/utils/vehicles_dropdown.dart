@@ -1,7 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:mycargenie_2/theme/icons.dart';
-import '../boxes.dart';
+import 'boxes.dart';
 
 typedef MenuEntry = DropdownMenuEntry<int>;
 
