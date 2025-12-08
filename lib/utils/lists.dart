@@ -58,13 +58,6 @@ List<String> getMaintenanceTypeList(BuildContext context) {
   ];
 }
 
-// const List<String> maintenanceTypeList = <String>[
-//   'Meccanico',
-//   'Elettrauto',
-//   'Carroziere',
-//   'Altro',
-// ];
-
 // TODO: Valuate if changing the ui to make the user select the vehicle category first
 // TODO: Valuate if divide the list in cars and motorbikes brand
 // TODO: Valuate if inserting truck brands too

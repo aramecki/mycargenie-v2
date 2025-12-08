@@ -3,20 +3,38 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:mycargenie_2/theme/colors.dart';
 
 // Circle arrow down for dropdowns
-HugeIcon arrowDownIcon = HugeIcon(
-  icon: HugeIcons.strokeRoundedCircleArrowDown01,
-  size: 25,
-);
+HugeIcon arrowDownIcon({double iconSize = 25}) {
+  return HugeIcon(
+    icon: HugeIcons.strokeRoundedCircleArrowDown01,
+    size: iconSize,
+    color: Colors.white,
+  );
+}
 
 // Circle arrow up for dropdowns
-HugeIcon arrowUpIcon = HugeIcon(
-  icon: HugeIcons.strokeRoundedCircleArrowUp01,
-  size: 25,
-);
+HugeIcon arrowUpIcon({double iconSize = 25}) {
+  return HugeIcon(
+    icon: HugeIcons.strokeRoundedCircleArrowUp01,
+    size: iconSize,
+    color: Colors.white,
+  );
+}
 
 // Calendar icon
 HugeIcon calendarIcon = HugeIcon(
   icon: HugeIcons.strokeRoundedCalendar03,
+  size: 25,
+);
+
+// Start Calendar icon
+HugeIcon startCalendarIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedCalendarAdd02,
+  size: 25,
+);
+
+// Stop Calendar icon
+HugeIcon stopCalendarIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedCalendarRemove02,
   size: 25,
 );
 
@@ -146,6 +164,27 @@ HugeIcon feedbackIcon = HugeIcon(
 // Info Icon
 HugeIcon infoIcon = HugeIcon(
   icon: HugeIcons.strokeRoundedAlertSquare,
+  size: 28,
+  strokeWidth: 1.5,
+);
+
+// Insurance Icon
+HugeIcon insuranceIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedSafe,
+  size: 28,
+  strokeWidth: 1.5,
+);
+
+// Tax Icon
+HugeIcon taxIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedSaleTag01,
+  size: 28,
+  strokeWidth: 1.5,
+);
+
+// Revision Icon
+HugeIcon revisionIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedService,
   size: 28,
   strokeWidth: 1.5,
 );

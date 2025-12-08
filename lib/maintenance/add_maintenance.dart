@@ -44,13 +44,11 @@ class _AddMaintenanceState extends State<AddMaintenance> {
 
     final settingsProvider = context.read<SettingsProvider>();
     final currencySymbol = settingsProvider.currency;
-    final decimalDivider = ',';
-    final thousandDivider = ' ';
 
     _priceCtrl = CurrencyTextFieldController(
       currencySymbol: currencySymbol!,
-      decimalSymbol: decimalDivider,
-      thousandSymbol: thousandDivider,
+      decimalSymbol: ',',
+      thousandSymbol: ' ',
       maxDigits: 8,
       enableNegative: false,
     );
@@ -191,7 +189,7 @@ class _AddMaintenanceState extends State<AddMaintenance> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
-              DatePickerExample(
+              DatePickerWidget(
                 editDate: isEdit ? _date : null,
                 onSelected: (value) {
                   setState(() => _date = value);

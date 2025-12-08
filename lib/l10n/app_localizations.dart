@@ -674,22 +674,22 @@ abstract class AppLocalizations {
   /// **'About'**
   String get about;
 
-  /// Language Settings text
+  /// Language settings text
   ///
   /// In en, this message translates to:
-  /// **'Language Settings'**
+  /// **'Language settings'**
   String get languageSettings;
 
-  /// Theme Settings text
+  /// Theme settings text
   ///
   /// In en, this message translates to:
-  /// **'Theme Settings'**
+  /// **'Theme settings'**
   String get themeSettings;
 
-  /// Currency Settings text
+  /// Currency settings text
   ///
   /// In en, this message translates to:
-  /// **'Currency Settings'**
+  /// **'Currency settings'**
   String get currencySettings;
 
   /// Follow system theme text
@@ -709,6 +709,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The latest events of the selected vehicle will be shown on this page.'**
   String get homeNoEventsMessage;
+
+  /// Third party insurance text
+  ///
+  /// In en, this message translates to:
+  /// **'Third party insurance'**
+  String get thirdPartyInsurance;
+
+  /// Car tax text
+  ///
+  /// In en, this message translates to:
+  /// **'Car tax'**
+  String get carTax;
+
+  /// Car inspection text
+  ///
+  /// In en, this message translates to:
+  /// **'Car inspection'**
+  String get carInspection;
+
+  /// Expiring: text
+  ///
+  /// In en, this message translates to:
+  /// **'Expiring:'**
+  String get expiring;
+
+  /// Edit insurance details text
+  ///
+  /// In en, this message translates to:
+  /// **'Edit insurance details'**
+  String get editInsuranceDetails;
+
+  /// insurance text
+  ///
+  /// In en, this message translates to:
+  /// **'insurance'**
+  String get insurance;
+
+  /// Insurance agency text
+  ///
+  /// In en, this message translates to:
+  /// **'Insurance agency'**
+  String get insuranceAgency;
+
+  /// Notes text
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get notes;
+
+  /// Total amount text
+  ///
+  /// In en, this message translates to:
+  /// **'Total amount'**
+  String get totalAmount;
+
+  /// Customize dues: text
+  ///
+  /// In en, this message translates to:
+  /// **'Customize dues:'**
+  String get customizeDues;
+
+  /// Due  text
+  ///
+  /// In en, this message translates to:
+  /// **'Due '**
+  String get dueSpace;
 }
 
 class _AppLocalizationsDelegate

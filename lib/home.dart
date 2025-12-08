@@ -108,9 +108,9 @@ class _HomePageState extends State<Home> {
                           foregroundImage: getVehicleImage(
                             vehicleProvider.vehicleToLoad,
                           ),
-                          backgroundImage: NetworkImage(
-                            'https://s3.us-west-2.amazonaws.com/portoftacoma.com.if-us-west-2-or/s3fs-public/styles/image_text_paragraph/public/2023-11/otters12.jpg',
-                          ),
+                          // backgroundImage: NetworkImage(
+                          //   'https://s3.us-west-2.amazonaws.com/portoftacoma.com.if-us-west-2-or/s3fs-public/styles/image_text_paragraph/public/2023-11/otters12.jpg',
+                          // ),
                         ),
                       ),
 

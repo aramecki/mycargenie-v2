@@ -534,19 +534,19 @@
     "description": "Informazioni text"
   },
 
-  "languageSettings": "Impostazioni Lingua",
+  "languageSettings": "Impostazioni lingua",
   "@languageSettings": {
-    "description": "Impostazioni Lingua text"
+    "description": "Impostazioni lingua text"
   },
 
-  "themeSettings": "Impostazioni Tema",
+  "themeSettings": "Impostazioni tema",
   "@themeSettings": {
-    "description": "Impostazioni Tema text"
+    "description": "Impostazioni tema text"
   },
 
-  "currencySettings": "Impostazioni Valuta",
+  "currencySettings": "Impostazioni valuta",
   "@currencySettings": {
-    "description": "Impostazioni Valuta text"
+    "description": "Impostazioni valuta text"
   },
 
   "followSystemTheme": "Segui impostazioni di sistema",
@@ -562,6 +562,61 @@
   "homeNoEventsMessage": "Gli ultimi eventi del veicolo selezionato saranno mostrati in questa pagina.",
   "@homeNoEventsMessage": {
     "description": "Gli ultimi eventi del veicolo selezionato saranno mostrati in questa pagina. text"
+  },
+
+  "thirdPartyInsurance": "Assicurazione RCA",
+  "@thirdPartyInsurance": {
+    "description": "Assicurazione RCA text"
+  },
+
+  "carTax": "Tassa automobilistica",
+  "@carTax": {
+    "description": "Tassa automobilistica text"
+  },
+
+  "carInspection": "Revisione",
+  "@carInspection": {
+    "description": "Revisione text"
+  },
+
+  "expiring": "In scadenza:",
+  "@expiring": {
+    "description": "In scadenza: text"
+  },
+
+  "editInsuranceDetails": "Modifica dettagli polizza",
+  "@editInsuranceDetails": {
+    "description": "Modifica dettagli polizza text"
+  },
+
+  "insurance": "assicurazione",
+  "@insurance": {
+    "description": "assicurazione text"
+  },
+
+  "insuranceAgency": "Agenzia assicurativa",
+  "@insuranceAgency": {
+    "description": "Agenzia assicurativa text"
+  },
+
+  "notes": "Note",
+  "@notes": {
+    "description": "Note text"
+  },
+  
+  "totalAmount": "Importo totale",
+  "@totalAmount": {
+    "description": "Importo totale text"
+  },
+
+  "customizeDues": "Personalizza rate:",
+  "@customizeDues": {
+    "description": "Personalizza rate: text"
+  },
+
+  "dueSpace": "Rata ",
+  "@dueSpace": {
+    "description": "Rata  text"
   }
 
 }

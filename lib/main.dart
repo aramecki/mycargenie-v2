@@ -15,56 +15,6 @@ import 'invoices/invoices.dart';
 import 'utils/boxes.dart';
 import 'startup_image_loader_debug.dart';
 
-// class SettingsProvider with ChangeNotifier {
-//   final SettingsService _service = SettingsService();
-//   final Locale _systemLocale; // Stores the system locale captured in main()
-//   SettingsModel? _settings;
-
-//   SettingsModel? get settings => _settings;
-//   Locale? get locale => _settings?.locale;
-//   ThemeMode? get themeMode => _settings?.themeMode;
-
-//   // CRITICAL CHANGE: Accept the system locale in the constructor
-//   SettingsProvider(this._systemLocale) {
-//     _loadInitialSettings();
-//   }
-
-//   // Initialization: Loads settings from the service
-//   Future<void> _loadInitialSettings() async {
-//     // CRITICAL CHANGE: Pass the system locale to the service
-//     _settings = await _service.loadSettings(_systemLocale);
-//     notifyListeners();
-//   }
-
-//   // Setter for Locale
-//   Future<void> setLocale(Locale newLocale) async {
-//     if (_settings == null ||
-//         newLocale.languageCode == _settings!.locale.languageCode) {
-//       return;
-//     }
-
-//     await _service.saveLocale(newLocale);
-
-//     _settings = SettingsModel(
-//       locale: newLocale,
-//       themeMode: _settings!.themeMode,
-//     );
-
-//     notifyListeners();
-//   }
-
-//   // Setter for Theme Mode
-//   Future<void> setThemeMode(ThemeMode newMode) async {
-//     if (_settings == null || newMode == _settings!.themeMode) return;
-
-//     await _service.saveThemeMode(newMode);
-
-//     _settings = SettingsModel(locale: _settings!.locale, themeMode: newMode);
-
-//     notifyListeners();
-//   }
-// }
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final systemLocale = WidgetsBinding.instance.platformDispatcher.locale;
@@ -74,6 +24,7 @@ void main() async {
   await Hive.openBox('vehicle');
   await Hive.openBox('maintenance');
   await Hive.openBox('refueling');
+  await Hive.openBox('insurance');
 
   if (vehicleBox.isEmpty) {
     await startupImageLoader();

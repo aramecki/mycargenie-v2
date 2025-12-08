@@ -53,16 +53,19 @@ Widget buildAddButton(
 class CustomSwitch extends StatelessWidget {
   final bool isSelected;
   final ValueChanged<bool> onChanged;
+  final String? text;
 
   const CustomSwitch({
     super.key,
     required this.isSelected,
     required this.onChanged,
+    this.text,
   });
 
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
@@ -71,7 +74,7 @@ class CustomSwitch extends StatelessWidget {
         const SizedBox(width: 4),
 
         Text(
-          localizations.favorite,
+          text ?? localizations.favorite,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
         ),
       ],
@@ -90,10 +93,8 @@ Widget slideableIcon(
     onPressed: onPressed,
     autoClose: true,
     backgroundColor: Colors.transparent,
-    //alignment: Alignment.center,
     padding: EdgeInsets.symmetric(horizontal: 3),
     child: SizedBox.expand(
-      //child: Center(
       child: Container(
         width: 28,
         height: 28,
@@ -105,7 +106,6 @@ Widget slideableIcon(
         ),
         child: icon,
       ),
-      //),
     ),
   );
 }
@@ -177,7 +177,7 @@ Widget homeRowBox(
                             'l',
                           ),
                           style: textStyle,
-                        ), //TODO: change unit to set one
+                        ),
                     ]
                   : [
                       if (place != null) Text(place, style: textStyle),

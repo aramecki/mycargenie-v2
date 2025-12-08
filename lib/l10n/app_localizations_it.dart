@@ -330,13 +330,13 @@ class AppLocalizationsIt extends AppLocalizations {
   String get about => 'Informazioni';
 
   @override
-  String get languageSettings => 'Impostazioni Lingua';
+  String get languageSettings => 'Impostazioni lingua';
 
   @override
-  String get themeSettings => 'Impostazioni Tema';
+  String get themeSettings => 'Impostazioni tema';
 
   @override
-  String get currencySettings => 'Impostazioni Valuta';
+  String get currencySettings => 'Impostazioni valuta';
 
   @override
   String get followSystemTheme => 'Segui impostazioni di sistema';
@@ -347,4 +347,37 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get homeNoEventsMessage =>
       'Gli ultimi eventi del veicolo selezionato saranno mostrati in questa pagina.';
+
+  @override
+  String get thirdPartyInsurance => 'Assicurazione RCA';
+
+  @override
+  String get carTax => 'Tassa automobilistica';
+
+  @override
+  String get carInspection => 'Revisione';
+
+  @override
+  String get expiring => 'In scadenza:';
+
+  @override
+  String get editInsuranceDetails => 'Modifica dettagli polizza';
+
+  @override
+  String get insurance => 'assicurazione';
+
+  @override
+  String get insuranceAgency => 'Agenzia assicurativa';
+
+  @override
+  String get notes => 'Note';
+
+  @override
+  String get totalAmount => 'Importo totale';
+
+  @override
+  String get customizeDues => 'Personalizza rate:';
+
+  @override
+  String get dueSpace => 'Rata ';
 }

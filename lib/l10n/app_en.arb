@@ -534,19 +534,19 @@
     "description": "About text"
   },
 
-  "languageSettings": "Language Settings",
+  "languageSettings": "Language settings",
   "@languageSettings": {
-    "description": "Language Settings text"
+    "description": "Language settings text"
   },
 
-  "themeSettings": "Theme Settings",
+  "themeSettings": "Theme settings",
   "@themeSettings": {
-    "description": "Theme Settings text"
+    "description": "Theme settings text"
   },
 
-  "currencySettings": "Currency Settings",
+  "currencySettings": "Currency settings",
   "@currencySettings": {
-    "description": "Currency Settings text"
+    "description": "Currency settings text"
   },
 
   "followSystemTheme": "Follow system theme",
@@ -562,6 +562,60 @@
   "homeNoEventsMessage": "The latest events of the selected vehicle will be shown on this page.",
   "@homeNoEventsMessage": {
     "description": "The latest events of the selected vehicle will be shown on this page. text"
-  }
+  },
 
+  "thirdPartyInsurance": "Third party insurance",
+  "@thirdPartyInsurance": {
+    "description": "Third party insurance text"
+  },
+
+  "carTax": "Car tax",
+  "@carTax": {
+    "description": "Car tax text"
+  },
+
+  "carInspection": "Car inspection",
+  "@carInspection": {
+    "description": "Car inspection text"
+  },
+
+  "expiring": "Expiring:",
+  "@expiring": {
+    "description": "Expiring: text"
+  },
+
+  "editInsuranceDetails": "Edit insurance details",
+  "@editInsuranceDetails": {
+    "description": "Edit insurance details text"
+  },
+
+  "insurance": "insurance",
+  "@insurance": {
+    "description": "insurance text"
+  },
+
+  "insuranceAgency": "Insurance agency",
+  "@insuranceAgency": {
+    "description": "Insurance agency text"
+  },
+
+  "notes": "Notes",
+  "@notes": {
+    "description": "Notes text"
+  },
+  
+  "totalAmount": "Total amount",
+  "@totalAmount": {
+    "description": "Total amount text"
+  },
+
+  "customizeDues": "Customize dues:",
+  "@customizeDues": {
+    "description": "Customize dues: text"
+  },
+
+  "dueSpace": "Due ",
+  "@dueSpace": {
+    "description": "Due  text"
+  }
 }

@@ -198,8 +198,8 @@ class _AddVehicleState extends State<AddVehicle> {
                         (item) => DropdownMenuEntry(value: item, label: item),
                       )
                       .toList(),
-                  trailingIcon: arrowDownIcon,
-                  selectedTrailingIcon: arrowUpIcon,
+                  trailingIcon: arrowDownIcon(),
+                  selectedTrailingIcon: arrowUpIcon(),
                   menuStyle: const MenuStyle(
                     maximumSize: WidgetStatePropertyAll(
                       Size(double.infinity, 200),
