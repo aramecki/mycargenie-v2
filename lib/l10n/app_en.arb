@@ -609,13 +609,31 @@
     "description": "Total amount text"
   },
 
-  "customizeDues": "Customize dues:",
+  "customizeDues": "Customize dues",
   "@customizeDues": {
-    "description": "Customize dues: text"
+    "description": "Customize dues text"
   },
 
   "dueSpace": "Due ",
   "@dueSpace": {
     "description": "Due  text"
+  },
+
+  "duesCount": "{duesNumber,plural, =1{1 due} other{{duesNumber} dues}}",
+  "@duesCount": {
+    "placeholders": {
+      "duesNumber": {}
+    }
+  },
+
+  "spaceInSpace": " in ",
+  "@spaceInSpace": {
+    "description": " in  text"
+  },
+
+  "notifications": "Notifications",
+  "@notifications": {
+    "description": "Notifications text"
   }
+  
 }

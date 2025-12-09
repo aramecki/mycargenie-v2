@@ -609,14 +609,31 @@
     "description": "Importo totale text"
   },
 
-  "customizeDues": "Personalizza rate:",
+  "customizeDues": "Personalizza rate",
   "@customizeDues": {
-    "description": "Personalizza rate: text"
+    "description": "Personalizza rate text"
   },
 
   "dueSpace": "Rata ",
   "@dueSpace": {
     "description": "Rata  text"
+  },
+
+  "duesCount": "{duesNumber,plural, =1{1 rata} other{{duesNumber} rate}}",
+  "@duesCount": {
+    "placeholders": {
+      "duesNumber": {}
+    }
+  },
+
+  "spaceInSpace": " in ",
+  "@spaceInSpace": {
+    "description": " in  text"
+  },
+
+  "notifications": "Notifiche",
+  "@notifications": {
+    "description": "Notifiche text"
   }
 
 }

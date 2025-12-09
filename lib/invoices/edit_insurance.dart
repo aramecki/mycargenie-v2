@@ -39,6 +39,7 @@ class _EditInsuranceState extends State<EditInsurance> {
   DateTime? _startDate;
   DateTime? _endDate;
   bool _personalizeDues = false;
+  bool _notifications = false;
 
   final today = DateTime.now();
 
@@ -80,6 +81,7 @@ class _EditInsuranceState extends State<EditInsurance> {
       _duesCtrl.text = details['dues'] ?? '1';
 
       _personalizeDues = details['personalizeDues'] ?? false;
+      _notifications = details['notifications'] ?? false;
 
       final int? duesNumber = int.tryParse(_duesCtrl.text);
 
@@ -142,6 +144,7 @@ class _EditInsuranceState extends State<EditInsurance> {
       'totalPrice': totalPriceDoubleValue.toStringAsFixed(2),
       'dues': _duesCtrl.text.trim() == '' ? '1' : _duesCtrl.text.trim(),
       'personalizeDues': _personalizeDues,
+      'notifications': _notifications,
       ...duesMap,
       ...duesDatesMap,
       'vehicleKey': vehicleKey,
@@ -284,18 +287,11 @@ class _EditInsuranceState extends State<EditInsurance> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Text(
-                  localizations.customizeDues,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-
-                const SizedBox(width: 6),
-
                 CustomSwitch(
-                  text: '',
+                  text: localizations.customizeDues,
                   isSelected: _personalizeDues,
                   onChanged: (v) async {
                     setState(() {
@@ -397,6 +393,26 @@ class _EditInsuranceState extends State<EditInsurance> {
                   ),
                 )
               : const SizedBox.shrink(key: ValueKey('hidden')),
+        ),
+
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              CustomSwitch(
+                text: localizations.notifications,
+                isSelected: _notifications,
+                onChanged: (v) async {
+                  setState(() {
+                    log('changing notifications state to $v');
+                    _notifications = v;
+                  });
+                },
+              ),
+            ],
+          ),
         ),
 
         // Save  button section

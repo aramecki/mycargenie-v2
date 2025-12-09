@@ -376,8 +376,25 @@ class AppLocalizationsIt extends AppLocalizations {
   String get totalAmount => 'Importo totale';
 
   @override
-  String get customizeDues => 'Personalizza rate:';
+  String get customizeDues => 'Personalizza rate';
 
   @override
   String get dueSpace => 'Rata ';
+
+  @override
+  String duesCount(num duesNumber) {
+    String _temp0 = intl.Intl.pluralLogic(
+      duesNumber,
+      locale: localeName,
+      other: '$duesNumber rate',
+      one: '1 rata',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get spaceInSpace => ' in ';
+
+  @override
+  String get notifications => 'Notifiche';
 }

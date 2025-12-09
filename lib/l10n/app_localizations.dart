@@ -764,10 +764,10 @@ abstract class AppLocalizations {
   /// **'Total amount'**
   String get totalAmount;
 
-  /// Customize dues: text
+  /// Customize dues text
   ///
   /// In en, this message translates to:
-  /// **'Customize dues:'**
+  /// **'Customize dues'**
   String get customizeDues;
 
   /// Due  text
@@ -775,6 +775,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Due '**
   String get dueSpace;
+
+  /// No description provided for @duesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{duesNumber,plural, =1{1 due} other{{duesNumber} dues}}'**
+  String duesCount(num duesNumber);
+
+  ///  in  text
+  ///
+  /// In en, this message translates to:
+  /// **' in '**
+  String get spaceInSpace;
+
+  /// Notifications text
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications;
 }
 
 class _AppLocalizationsDelegate
