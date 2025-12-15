@@ -32,6 +32,7 @@ class _MaintenanceState extends State<Maintenance> {
 
     log(maintenanceBox.toMap().toString());
 
+    // TODO: Configure loading limit logics
     return ValueListenableBuilder(
       valueListenable: maintenanceBox.listenable(),
       builder: (context, Box box, _) {
@@ -73,9 +74,8 @@ class _MaintenanceState extends State<Maintenance> {
                     ? MainAxisAlignment.spaceBetween
                     : MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 35),
                   Padding(
-                    padding: EdgeInsetsGeometry.symmetric(horizontal: 18),
+                    padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
                     child: Text(
                       localizations.youWillFindEvents(
                         localizations.maintenanceLower,

@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mycargenie_2/l10n/app_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:mycargenie_2/notifications/notifications_utils.dart';
 import 'package:mycargenie_2/settings/settings_logics.dart';
 import 'package:mycargenie_2/theme/theme_light.dart';
 import 'package:mycargenie_2/theme/theme_dark.dart';
@@ -19,12 +20,17 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final systemLocale = WidgetsBinding.instance.platformDispatcher.locale;
 
+  await initNotifications();
+
   await Hive.initFlutter();
 
   await Hive.openBox('vehicle');
   await Hive.openBox('maintenance');
   await Hive.openBox('refueling');
   await Hive.openBox('insurance');
+  await Hive.openBox('insuranceNotifications');
+
+  await cleanupDeliveredNotifications(insuranceNotificationsBox);
 
   if (vehicleBox.isEmpty) {
     await startupImageLoader();

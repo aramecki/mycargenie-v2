@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:mycargenie_2/settings/settings_logics.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:mycargenie_2/utils/boxes.dart';
 import 'package:mycargenie_2/home.dart';
@@ -7,7 +8,6 @@ import 'package:mycargenie_2/l10n/app_localizations.dart';
 import 'package:mycargenie_2/theme/icons.dart';
 import 'package:mycargenie_2/utils/support_fun.dart';
 import 'package:provider/provider.dart';
-import 'dart:io';
 import '../utils/puzzle.dart';
 
 class ShowVehicle extends StatefulWidget {
@@ -26,6 +26,7 @@ class _ShowVehicleState extends State<ShowVehicle> {
     final localizations = AppLocalizations.of(context)!;
 
     final vehicleProvider = Provider.of<VehicleProvider>(context);
+    final settingsProvider = Provider.of<SettingsProvider>(context);
 
     final content = ValueListenableBuilder(
       valueListenable: vehicleBox.listenable(keys: [widget.editKey]),
@@ -40,14 +41,30 @@ class _ShowVehicleState extends State<ShowVehicle> {
           children: [
             Padding(
               padding: EdgeInsets.only(top: 10, bottom: 4),
-              child: CircleAvatar(
-                radius: 120,
-                backgroundColor: Colors.deepOrange,
-                backgroundImage: v['assetImage'] != null
-                    ? FileImage(File(v['assetImage']))
-                    : null,
-              ),
+              child:
+                  // Vehicle image container
+                  FutureBuilder<ImageProvider<Object>?>(
+                    future: getVehicleImageAsync(
+                      widget.editKey,
+                      settingsProvider.documentsPath,
+                    ),
+                    builder: (context, snapshot) {
+                      ImageProvider<Object>? imageProvider;
+
+                      if (snapshot.connectionState == ConnectionState.done &&
+                          snapshot.hasData) {
+                        imageProvider = snapshot.data;
+                      }
+
+                      return CircleAvatar(
+                        radius: 120,
+                        foregroundImage: imageProvider,
+                        child: (imageProvider == null) ? carIcon : null,
+                      );
+                    },
+                  ),
             ),
+
             Padding(
               padding: EdgeInsets.only(left: 16, right: 16, top: 2),
               child: Row(

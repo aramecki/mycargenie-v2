@@ -188,3 +188,10 @@ HugeIcon revisionIcon = HugeIcon(
   size: 28,
   strokeWidth: 1.5,
 );
+
+// Car Icon
+HugeIcon carIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedCar05,
+  strokeWidth: 1.5,
+  size: 60,
+);

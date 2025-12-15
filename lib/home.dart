@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mycargenie_2/get_latest_events.dart';
 import 'package:mycargenie_2/l10n/app_localizations.dart';
 import 'package:mycargenie_2/settings/settings.dart';
+import 'package:mycargenie_2/settings/settings_logics.dart';
 import 'package:mycargenie_2/theme/icons.dart';
 import 'package:mycargenie_2/utils/puzzle.dart';
 import 'package:mycargenie_2/utils/support_fun.dart';
@@ -68,6 +69,7 @@ class _HomePageState extends State<Home> {
     final localizations = AppLocalizations.of(context)!;
 
     final vehicleProvider = context.watch<VehicleProvider>();
+    final settingsProvider = context.watch<SettingsProvider>();
 
     log('Starting loading: ${vehicleBox.get(vehicleProvider.vehicleToLoad)} ');
 
@@ -96,22 +98,34 @@ class _HomePageState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       // Vehicle image container
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 20,
-                          bottom: 16,
-                          left: 8,
-                          right: 4,
+                      FutureBuilder<ImageProvider<Object>?>(
+                        future: getVehicleImageAsync(
+                          vehicleProvider.vehicleToLoad,
+                          settingsProvider.documentsPath,
                         ),
-                        child: CircleAvatar(
-                          radius: 80,
-                          foregroundImage: getVehicleImage(
-                            vehicleProvider.vehicleToLoad,
-                          ),
-                          // backgroundImage: NetworkImage(
-                          //   'https://s3.us-west-2.amazonaws.com/portoftacoma.com.if-us-west-2-or/s3fs-public/styles/image_text_paragraph/public/2023-11/otters12.jpg',
-                          // ),
-                        ),
+                        builder: (context, snapshot) {
+                          ImageProvider<Object>? imageProvider;
+
+                          if (snapshot.connectionState ==
+                                  ConnectionState.done &&
+                              snapshot.hasData) {
+                            imageProvider = snapshot.data;
+                          }
+
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                              top: 20,
+                              bottom: 16,
+                              left: 8,
+                              right: 4,
+                            ),
+                            child: CircleAvatar(
+                              radius: 80,
+                              foregroundImage: imageProvider,
+                              child: (imageProvider == null) ? carIcon : null,
+                            ),
+                          );
+                        },
                       ),
 
                       // Car selection dropdown container
@@ -237,29 +251,34 @@ int? getYear(int vehicleId) {
   return map['year'] as int?;
 }
 
-ImageProvider<Object>? getVehicleImage(int? vehicleKey) {
-  // log('vehicleKey: $vehicleKey in getVehicleImage()');
-  if (vehicleKey == null) return null;
+Future<ImageProvider<Object>?> getVehicleImageAsync(
+  int? vehicleKey,
+  String documentsPath,
+) async {
+  if (vehicleKey == null || documentsPath.isEmpty) return null;
 
   final dynamic raw = vehicleBox.get(vehicleKey);
-
-  // log('Get vehicle raw: $raw in getVehicleImage()');
 
   if (raw == null) return null;
 
   final map = Map<String, dynamic>.from(raw);
   String? storedImagePath = map['assetImage'] as String?;
 
-  // log('storedImagePath: $storedImagePath');
-
   if (storedImagePath == null) return null;
 
-  final File possibleFile = File(storedImagePath);
-  if (possibleFile.existsSync()) {
-    // log('possibleFile: $possibleFile  in getVehicleImage()');
-    return FileImage(possibleFile);
+  final String reconstructedPath = '$documentsPath/$storedImagePath';
+
+  final File fileFromReconstruction = File(reconstructedPath);
+
+  if (await fileFromReconstruction.exists()) {
+    return FileImage(fileFromReconstruction);
   }
 
-  // log('returning null code ended  in getVehicleImage()');
+  final File fileFromStoredPath = File(storedImagePath);
+
+  if (await fileFromStoredPath.exists()) {
+    return FileImage(fileFromStoredPath);
+  }
+
   return null;
 }

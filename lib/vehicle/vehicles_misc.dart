@@ -29,9 +29,21 @@ Widget vehiclesListTile(
   final vehicleProvider = Provider.of<VehicleProvider>(context);
 
   String vehicleTitle = '${item['brand']} ${item['model']}';
-  String vehiclePower = localizations.numKw(item['power']);
-  String vehicleHorse = localizations.numCv(item['horse']);
-  String vehicleCapacity = localizations.numCc(item['capacity']);
+
+  int? vehiclePowerInt = item['power'];
+  String? vehiclePower = vehiclePowerInt != null
+      ? localizations.numKw(vehiclePowerInt)
+      : null;
+
+  int? vehicleHorseInt = item['horse'];
+  String? vehicleHorse = vehicleHorseInt != null
+      ? localizations.numCv(vehicleHorseInt)
+      : null;
+
+  int? vehicleCapacityInt = item['capacity'];
+  String? vehicleCapacity = vehicleCapacityInt != null
+      ? localizations.numCc(vehicleCapacityInt)
+      : null;
 
   return SizedBox(
     child: ListTile(
@@ -40,9 +52,9 @@ Widget vehiclesListTile(
       title: Text(vehicleTitle),
       subtitle: Row(
         children: [
-          Text(vehiclePower),
-          Text(vehicleHorse),
-          Text(vehicleCapacity),
+          if (vehiclePower != null) Text('$vehiclePower '),
+          if (vehicleHorse != null) Text('$vehicleHorse '),
+          if (vehicleCapacity != null) Text(vehicleCapacity),
         ],
       ),
       trailing: favoriteIconButton(

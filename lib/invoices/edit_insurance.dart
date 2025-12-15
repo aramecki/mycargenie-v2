@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:mycargenie_2/home.dart';
 import 'package:mycargenie_2/l10n/app_localizations.dart';
+import 'package:mycargenie_2/notifications/notifications_utils.dart';
+import 'package:mycargenie_2/notifications/permissions.dart';
 import 'package:mycargenie_2/theme/icons.dart';
 import 'package:mycargenie_2/utils/custom_currency_text_field_controller.dart';
 import 'package:mycargenie_2/utils/date_picker.dart';
@@ -41,7 +43,10 @@ class _EditInsuranceState extends State<EditInsurance> {
   bool _personalizeDues = false;
   bool _notifications = false;
 
-  final today = DateTime.now();
+  DateTime? _bkEndDate;
+
+  final now = DateTime.now();
+  DateTime get today => DateTime(now.year, now.month, now.day);
 
   List<String> numbersAsString = List<String>.generate(
     12,
@@ -69,6 +74,7 @@ class _EditInsuranceState extends State<EditInsurance> {
 
       if (details['endDate'] is DateTime) {
         _endDate = details['endDate'];
+        _bkEndDate = _endDate;
         log('loading endDate: ${_endDate.toString()}');
       }
 
@@ -115,6 +121,8 @@ class _EditInsuranceState extends State<EditInsurance> {
   }
 
   Future<void> _onSavePressed() async {
+    final localizations = AppLocalizations.of(context)!;
+
     final vehicleKey = Provider.of<VehicleProvider>(
       context,
       listen: false,
@@ -122,7 +130,9 @@ class _EditInsuranceState extends State<EditInsurance> {
 
     if (!mounted) return;
 
-    final double totalPriceDoubleValue = _totalPriceCtrl!.doubleValue;
+    final double totalPriceDoubleValue = _totalPriceCtrl != null
+        ? _totalPriceCtrl!.doubleValue
+        : 0.00;
 
     final duesMap = {
       for (int i = 0; i < _duesPersonalizationControllers.length; i++)
@@ -134,6 +144,7 @@ class _EditInsuranceState extends State<EditInsurance> {
     final duesDatesMap = {
       for (int i = 0; i < _duesPersonalizationDates.length; i++)
         'dueDate$i': _duesPersonalizationDates[i],
+      // TODO: Calculate automatically dues when no personalization or inform user of only informing him of expiration
     };
 
     final insuranceMap = <String, dynamic>{
@@ -155,6 +166,45 @@ class _EditInsuranceState extends State<EditInsurance> {
     //   return;
     // }
 
+    if (_notifications == true) {
+      log('Notifications is true, scheduling...');
+      if (_bkEndDate == null) {
+        log('_bkEndDate is null, new entry just scheduling');
+
+        scheduleInsuranceNotifications(
+          localizations,
+          vehicleKey,
+          _endDate ?? today.add(const Duration(days: 365)),
+        );
+      } else if (_bkEndDate != _endDate) {
+        log('_bkEndDate and _endDate are different, updating notifications');
+
+        deleteAllNotificationsInCategory(
+          insuranceNotificationsBox,
+          vehicleKey!,
+        );
+        scheduleInsuranceNotifications(
+          localizations,
+          vehicleKey,
+          _endDate ?? today.add(const Duration(days: 365)),
+        );
+      } else {
+        log('_bkEndDate and _endDate are the same, nothing to do');
+      }
+    } else {
+      deleteAllNotificationsInCategory(insuranceNotificationsBox, vehicleKey!);
+    }
+
+    if (_notifications == true && _duesPersonalizationDates.length > 1) {
+      for (int i = 0; i < _duesPersonalizationDates.length; i++) {
+        scheduleInsuranceNotifications(
+          localizations,
+          vehicleKey,
+          _duesPersonalizationDates[i],
+        );
+      }
+    }
+
     if (widget.editKey == null) {
       insuranceBox.add(insuranceMap);
       log('Saved: $insuranceMap');
@@ -165,6 +215,8 @@ class _EditInsuranceState extends State<EditInsurance> {
 
     Navigator.of(context).pop();
   }
+
+  //TODO: Manage when there are no vehicles
 
   @override
   Widget build(BuildContext context) {
@@ -405,10 +457,18 @@ class _EditInsuranceState extends State<EditInsurance> {
                 text: localizations.notifications,
                 isSelected: _notifications,
                 onChanged: (v) async {
-                  setState(() {
-                    log('changing notifications state to $v');
-                    _notifications = v;
-                  });
+                  bool hasPermissions = await checkAndRequestPermissions(
+                    context,
+                  );
+
+                  if (hasPermissions) {
+                    setState(() {
+                      log('changing notifications state to $v');
+                      _notifications = v;
+                    });
+                  } else {
+                    _notifications = false;
+                  }
                 },
               ),
             ],
@@ -514,5 +574,30 @@ Future<double?> calculateDues(double? totalPrice, int dues) async {
     return totalPrice / dues;
   } else {
     return null;
+  }
+}
+
+bool scheduleInsuranceNotifications(
+  AppLocalizations localizations,
+  int? vehicleKey,
+  DateTime? date,
+) {
+  if (vehicleKey != null && date != null) {
+    final vehicle = vehicleBox.get(vehicleKey);
+    String vehicleName = '${vehicle['brand']} ${vehicle['model']}';
+    DateTime effectiveDate = date.add(const Duration(hours: 9));
+    scheduleNotification(
+      vehicleKey: vehicleKey,
+      title: 'Your vehicle insurance is expiring',
+      body:
+          'The insurance of your $vehicleName is expiring on ${localizations.ggMmAaaa(date.day, date.month, date.year)}.',
+      date: effectiveDate, // Change to real date
+    );
+    return true;
+  } else {
+    log(
+      'returning false in scheduleInsuranceNotifications fun because date: $date vehicleKey: $vehicleKey',
+    );
+    return false;
   }
 }

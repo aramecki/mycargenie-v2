@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:mycargenie_2/home.dart';
 import 'package:mycargenie_2/invoices/edit_insurance.dart';
 import 'package:mycargenie_2/l10n/app_localizations.dart';
 import 'package:mycargenie_2/settings/currency_settings.dart';
@@ -10,13 +9,14 @@ import 'package:mycargenie_2/settings/settings.dart';
 import 'package:mycargenie_2/settings/settings_logics.dart';
 import 'package:mycargenie_2/theme/colors.dart';
 import 'package:mycargenie_2/theme/icons.dart';
-import 'package:mycargenie_2/theme/text_styles.dart';
 import 'package:provider/provider.dart';
 import '../utils/puzzle.dart';
 import '../utils/boxes.dart';
 
 class Insurance extends StatefulWidget {
-  const Insurance({super.key});
+  final int vehicleKey;
+
+  const Insurance({super.key, required this.vehicleKey});
 
   @override
   State<Insurance> createState() => _InsuranceState();
@@ -40,16 +40,11 @@ class _InsuranceState extends State<Insurance> {
   void initState() {
     super.initState();
 
-    final vehicleKey = Provider.of<VehicleProvider>(
-      context,
-      listen: false,
-    ).vehicleToLoad;
-
     log('insuranceBox contains: ${insuranceBox.toMap().toString()}');
 
     List<dynamic> details = insuranceBox.keys.where((key) {
       final value = insuranceBox.get(key);
-      return value != null && value['vehicleKey'] == vehicleKey;
+      return value != null && value['vehicleKey'] == widget.vehicleKey;
     }).toList();
 
     log('details are: $details');
@@ -101,22 +96,24 @@ class _InsuranceState extends State<Insurance> {
 
               int duesInt = int.parse(_dues);
 
-              for (var i = 0; i < duesInt; i++) {
-                duesPriceList.add(
-                  localizations.numCurrency(
-                    parseShowedPrice(e['due$i']),
-                    currencySymbol!,
-                  ),
-                );
+              if (duesInt > 1) {
+                for (var i = 0; i < duesInt; i++) {
+                  duesPriceList.add(
+                    localizations.numCurrency(
+                      parseShowedPrice(e['due$i']),
+                      currencySymbol!,
+                    ),
+                  );
 
-                DateTime dueDate = e['dueDate$i'];
-                duesDateList.add(
-                  localizations.ggMmAaaa(
-                    dueDate.day,
-                    dueDate.month,
-                    dueDate.year,
-                  ),
-                );
+                  DateTime dueDate = e['dueDate$i'];
+                  duesDateList.add(
+                    localizations.ggMmAaaa(
+                      dueDate.day,
+                      dueDate.month,
+                      dueDate.year,
+                    ),
+                  );
+                }
               }
 
               totalPriceString = localizations.numCurrency(
@@ -179,16 +176,20 @@ class _InsuranceState extends State<Insurance> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        containerWithTextAndIcon(
-                          startDateString!,
-                          startCalendarIcon,
+                        Expanded(
+                          child: containerWithTextAndIcon(
+                            startDateString!,
+                            startCalendarIcon,
+                          ),
                         ),
 
                         SizedBox(width: 8),
 
-                        containerWithTextAndIcon(
-                          endDateString!,
-                          stopCalendarIcon,
+                        Expanded(
+                          child: containerWithTextAndIcon(
+                            endDateString!,
+                            stopCalendarIcon,
+                          ),
                         ),
                       ],
                     ),
@@ -312,10 +313,10 @@ Widget containerWithTextAndIcon(String text, HugeIcon icon) {
       border: Border.all(color: Colors.deepOrange, width: 2),
       borderRadius: BorderRadius.circular(50),
     ),
-    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 30),
+    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [icon, SizedBox(width: 12), Text(text)],
+      children: [icon, SizedBox(width: 10), Text(text)],
     ),
   );
 }

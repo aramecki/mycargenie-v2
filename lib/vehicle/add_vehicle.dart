@@ -121,7 +121,9 @@ class _AddVehicleState extends State<AddVehicle> {
 
     if (!mounted) return;
 
-    if (vehicleMap['brand'].isEmpty || vehicleMap['model'].isEmpty) {
+    if (vehicleMap['brand'] == null ||
+        vehicleMap['model'] == null ||
+        vehicleMap['model'] == '') {
       showCustomToast(context, message: localizations.brandModelRequiredField);
       return;
     }
