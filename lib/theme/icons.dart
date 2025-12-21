@@ -2,12 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:mycargenie_2/theme/colors.dart';
 
+// Home icon
+HugeIcon homeIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedHome07,
+  size: 30,
+  strokeWidth: 1,
+);
+
+// Home icon
+HugeIcon toolsIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedTools,
+  size: 30,
+  strokeWidth: 1,
+);
+
+// Home icon
+HugeIcon refuelingIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedFuel,
+  size: 30,
+  strokeWidth: 1,
+);
+
+// Invoices icon
+HugeIcon invoicesIcon = HugeIcon(
+  icon: HugeIcons.strokeRoundedInvoice,
+  size: 30,
+  strokeWidth: 1,
+);
+
 // Circle arrow down for dropdowns
 HugeIcon arrowDownIcon({double iconSize = 25}) {
   return HugeIcon(
     icon: HugeIcons.strokeRoundedCircleArrowDown01,
     size: iconSize,
-    color: Colors.white,
+    //color: Colors.white,
   );
 }
 
@@ -16,7 +44,7 @@ HugeIcon arrowUpIcon({double iconSize = 25}) {
   return HugeIcon(
     icon: HugeIcons.strokeRoundedCircleArrowUp01,
     size: iconSize,
-    color: Colors.white,
+    //color: Colors.white,
   );
 }
 

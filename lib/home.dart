@@ -115,19 +115,17 @@ class _HomePageState extends State<Home> {
                             padding: const EdgeInsets.only(
                               top: 20,
                               bottom: 16,
-                              //left: 8,
                               right: 8,
+                              left: 8,
                             ),
                             child: CircleAvatar(
-                              radius: 80,
+                              radius: 60,
                               foregroundImage: imageProvider,
                               child: (imageProvider == null) ? carIcon : null,
                             ),
                           );
                         },
                       ),
-
-                      //Expanded(child: SizedBox()),
 
                       // Car selection dropdown container
                       Expanded(
@@ -136,7 +134,7 @@ class _HomePageState extends State<Home> {
                             top: 20,
                             bottom: 20,
                             left: 8,
-                            //right: 8,
+                            right: 8,
                           ),
                           child: VehiclesDropdown(
                             defaultId: vehicleProvider.vehicleToLoad,

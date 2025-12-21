@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mycargenie_2/l10n/app_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:mycargenie_2/notifications/notifications_utils.dart';
 import 'package:mycargenie_2/settings/settings_logics.dart';
+import 'package:mycargenie_2/theme/icons.dart';
+import 'package:mycargenie_2/theme/teme.dart';
 import 'package:mycargenie_2/theme/theme_light.dart';
 import 'package:mycargenie_2/theme/theme_dark.dart';
 import 'package:provider/provider.dart';
@@ -146,10 +147,6 @@ class _MyCarGenieMainState extends State<MyCarGenieMain> {
 
     return Scaffold(
       //extendBody: true,
-      // appBar: AppBar(
-      //   title: const Text('MyCarGenie'),
-      //   backgroundColor: Theme.of(context).colorScheme.primary,
-      // ),
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 350),
         switchInCurve: Curves.easeOut,
@@ -157,7 +154,6 @@ class _MyCarGenieMainState extends State<MyCarGenieMain> {
         transitionBuilder: (Widget child, Animation<double> animation) {
           final bool incoming =
               (child.key as ValueKey<int>).value == _currentIndex;
-
           final Offset begin = incoming
               ? _latestIndex < _currentIndex
                     ? const Offset(0.2, 0)
@@ -169,16 +165,15 @@ class _MyCarGenieMainState extends State<MyCarGenieMain> {
           final Animation<Offset> offset = tween.animate(
             CurvedAnimation(parent: animation, curve: Curves.easeOut),
           );
-
           return SlideTransition(position: offset, child: child);
         },
         child: pages[_currentIndex],
       ),
       bottomNavigationBar: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(top: 2.0, left: 16.0, right: 16.0),
+          padding: EdgeInsets.only(top: 2, bottom: 8, left: 16, right: 16),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(50),
+            borderRadius: BorderRadius.circular(30),
             child: SizedBox(
               height: 60,
               child: NavigationBar(
@@ -191,35 +186,19 @@ class _MyCarGenieMainState extends State<MyCarGenieMain> {
                 },
                 destinations: [
                   NavigationDestination(
-                    icon: const HugeIcon(
-                      icon: HugeIcons.strokeRoundedHome07,
-                      size: 30,
-                      strokeWidth: 1,
-                    ),
+                    icon: homeIcon,
                     label: localizations.home,
                   ),
                   NavigationDestination(
-                    icon: const HugeIcon(
-                      icon: HugeIcons.strokeRoundedTools,
-                      size: 30,
-                      strokeWidth: 1,
-                    ),
+                    icon: toolsIcon,
                     label: localizations.maintenanceUpper,
                   ),
                   NavigationDestination(
-                    icon: HugeIcon(
-                      icon: HugeIcons.strokeRoundedFuel,
-                      size: 30,
-                      strokeWidth: 1,
-                    ),
+                    icon: refuelingIcon,
                     label: localizations.refuelingUpper,
                   ),
                   NavigationDestination(
-                    icon: HugeIcon(
-                      icon: HugeIcons.strokeRoundedInvoice,
-                      size: 30,
-                      strokeWidth: 1,
-                    ),
+                    icon: invoicesIcon,
                     label: localizations.invoices,
                   ),
                 ],

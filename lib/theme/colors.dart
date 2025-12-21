@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 // Personalized colors
-
 Color lightGrey = Colors.grey[300]!;
 Color middleGrey = Colors.grey[600]!;
 Color darkGrey = Colors.grey[900]!;
