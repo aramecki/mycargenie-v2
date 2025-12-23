@@ -9,3 +9,11 @@ final refuelingBox = Hive.box('refueling');
 final insuranceBox = Hive.box('insurance');
 
 final insuranceNotificationsBox = Hive.box('insuranceNotifications');
+
+final taxBox = Hive.box('tax');
+
+final taxNotificationsBox = Hive.box('taxNotifications');
+
+final inspectionBox = Hive.box('inspection');
+
+final inspectionNotificationsBox = Hive.box('inspectionNotifications');

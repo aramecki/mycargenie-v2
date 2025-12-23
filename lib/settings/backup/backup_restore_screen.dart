@@ -15,7 +15,17 @@ class BackupRestoreScreen extends StatefulWidget {
 }
 
 class _BackupRestoreScreenState extends State<BackupRestoreScreen> {
-  final List<String> _boxNames = ['vehicle', 'maintenance', 'refueling'];
+  final List<String> _boxNames = [
+    'vehicle',
+    'maintenance',
+    'refueling',
+    'insurance',
+    'insuranceNotifications',
+    'tax',
+    'taxNotifications',
+    'inspection',
+    'inspectionNotifications',
+  ];
   String _statusBackup = '';
   String _statusRestore = '';
   bool _isBackingUp = false;

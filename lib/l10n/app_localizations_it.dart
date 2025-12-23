@@ -361,16 +361,30 @@ class AppLocalizationsIt extends AppLocalizations {
   String get thirdPartyInsurance => 'Assicurazione RCA';
 
   @override
-  String get carTax => 'Tassa automobilistica';
+  String get tax => 'Tassa automobilistica';
 
   @override
-  String get carInspection => 'Revisione';
+  String get taxLower => 'tassa automobilistica';
+
+  @override
+  String get inspection => 'Revisione';
+
+  @override
+  String get inspectionLower => 'revisione';
+
+  @override
+  String get inspector => 'Revisore';
+
+  @override
+  String get performedAt => 'Effettuata presso:';
 
   @override
   String get expiring => 'In scadenza:';
 
   @override
-  String get editInsuranceDetails => 'Modifica dettagli polizza';
+  String editInvoiceDetails(String invoice) {
+    return 'Modifica dettagli $invoice';
+  }
 
   @override
   String get insurance => 'assicurazione';
@@ -419,8 +433,25 @@ class AppLocalizationsIt extends AppLocalizations {
       'La tua assicurazione sta per scadere!';
 
   @override
-  String insuranceNotificationsBody(String vehicleName) {
-    return 'L\'assicurazione della tua $vehicleName scadrà il ';
+  String get taxNotificationsTitle =>
+      'È ora di rinnovare la tua tassa automobilistica!';
+
+  @override
+  String get inspectionNotificationsTitle => 'La tua revisione scadrà presto!';
+
+  @override
+  String insuranceNotificationsBody(String vehicleName, String date) {
+    return 'L\'assicurazione della tua $vehicleName scadrà il $date.';
+  }
+
+  @override
+  String taxNotificationsBody(String vehicleName, String date) {
+    return 'La tassa automobilistica della tua $vehicleName dovrà essere saldata entro il $date.';
+  }
+
+  @override
+  String inspectionNotificationsBody(String vehicleName, String date) {
+    return 'Devovrai rinnovare la revisione della tua $vehicleName entro il $date.';
   }
 
   @override

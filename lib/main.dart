@@ -5,7 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mycargenie_2/notifications/notifications_utils.dart';
 import 'package:mycargenie_2/settings/settings_logics.dart';
 import 'package:mycargenie_2/theme/icons.dart';
-import 'package:mycargenie_2/theme/teme.dart';
+import 'package:mycargenie_2/theme/theme.dart';
 import 'package:provider/provider.dart';
 import 'vehicle/vehicles.dart';
 import 'home.dart';
@@ -28,6 +28,10 @@ void main() async {
   await Hive.openBox('refueling');
   await Hive.openBox('insurance');
   await Hive.openBox('insuranceNotifications');
+  await Hive.openBox('tax');
+  await Hive.openBox('taxNotifications');
+  await Hive.openBox('inspection');
+  await Hive.openBox('inspectionNotifications');
 
   await cleanupDeliveredNotifications(insuranceNotificationsBox);
 

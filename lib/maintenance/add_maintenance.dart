@@ -197,7 +197,9 @@ class _AddMaintenanceState extends State<AddMaintenance> {
                 },
               ),
 
-              const SizedBox(width: 8),
+              SizedBox(width: 8),
+
+              // TODO: Fix user can input characters in kilometers field
               customTextField(
                 context,
                 hintText: localizations.kilometersUpper,

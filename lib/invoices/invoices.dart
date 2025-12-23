@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:mycargenie_2/home.dart';
+import 'package:mycargenie_2/invoices/tax.dart';
+import 'package:mycargenie_2/invoices/inspection.dart';
 import 'package:mycargenie_2/invoices/insurance.dart';
 import 'package:mycargenie_2/l10n/app_localizations.dart';
 import 'package:mycargenie_2/notifications/notifications_utils.dart';
@@ -43,17 +45,21 @@ class _InvoicesState extends State<Invoices> {
               ListTile(
                 leading: CircleAvatar(child: taxIcon),
                 title: Text(
-                  localizations.carTax,
+                  localizations.tax,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                 ),
+                onTap: () =>
+                    navigateToPage(context, Tax(vehicleKey: vehicleKey)),
               ),
               Divider(height: 22),
               ListTile(
                 leading: CircleAvatar(child: revisionIcon),
                 title: Text(
-                  localizations.carInspection,
+                  localizations.inspection,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                 ),
+                onTap: () =>
+                    navigateToPage(context, Inspection(vehicleKey: vehicleKey)),
               ),
               Divider(height: 22),
               Row(children: [Text(localizations.expiring)]),

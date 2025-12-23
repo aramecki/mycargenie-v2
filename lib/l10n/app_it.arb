@@ -584,14 +584,34 @@
     "description": "Assicurazione RCA text"
   },
 
-  "carTax": "Tassa automobilistica",
-  "@carTax": {
+  "tax": "Tassa automobilistica",
+  "@tax": {
     "description": "Tassa automobilistica text"
   },
 
-  "carInspection": "Revisione",
-  "@carInspection": {
+  "taxLower": "tassa automobilistica",
+  "@taxLower": {
+    "description": "tassa automobilistica text"
+  },
+
+  "inspection": "Revisione",
+  "@inspection": {
     "description": "Revisione text"
+  },
+
+  "inspectionLower": "revisione",
+  "@inspectionLower": {
+    "description": "revisione text"
+  },
+
+  "inspector": "Revisore",
+  "@inspector": {
+    "description": "Revisore text"
+  },
+
+  "performedAt": "Effettuata presso:",
+  "@performedAt": {
+    "description": "Effettuata presso: text"
   },
 
   "expiring": "In scadenza:",
@@ -599,9 +619,14 @@
     "description": "In scadenza: text"
   },
 
-  "editInsuranceDetails": "Modifica dettagli polizza",
-  "@editInsuranceDetails": {
-    "description": "Modifica dettagli polizza text"
+  "editInvoiceDetails": "Modifica dettagli {invoice}",
+  "@editInvoiceDetails": {
+      "placeholders": {
+        "invoice": {
+          "type": "String"
+        }
+      },
+    "description": "Modifica dettagli {invoice} text"
   },
 
   "insurance": "assicurazione",
@@ -668,14 +693,53 @@
     "description": "La tua assicurazione sta per scadere! text"
   },
 
-  "insuranceNotificationsBody": "L'assicurazione della tua {vehicleName} scadrà il ",
+  "taxNotificationsTitle": "È ora di rinnovare la tua tassa automobilistica!",
+  "@taxNotificationsTitle": {
+    "description": "È ora di rinnovare la tua tassa automobilistica! text"
+  },
+
+  "inspectionNotificationsTitle": "La tua revisione scadrà presto!",
+  "@inspectionNotificationsTitle": {
+    "description": "La tua revisione scadrà presto! text"
+  },
+
+  "insuranceNotificationsBody": "L'assicurazione della tua {vehicleName} scadrà il {date}.",
   "@insuranceNotificationsBody": {
       "placeholders": {
         "vehicleName": {
           "type": "String"
+        },
+        "date": {
+          "type": "String"
         }
     },
-    "description": "L'assicurazione della tua {vehicleName} scadrà il  text"
+    "description": "L'assicurazione della tua {vehicleName} scadrà il {date}. text"
+  },
+
+  "taxNotificationsBody": "La tassa automobilistica della tua {vehicleName} dovrà essere saldata entro il {date}.",
+  "@taxNotificationsBody": {
+      "placeholders": {
+        "vehicleName": {
+          "type": "String"
+        },
+       "date": {
+          "type": "String"
+        }
+    },
+    "description": "La tassa automobilistica della tua {vehicleName} dovrà essere saldata entro il {date}. text"
+  },
+
+  "inspectionNotificationsBody": "Devovrai rinnovare la revisione della tua {vehicleName} entro il {date}.",
+  "@inspectionNotificationsBody": {
+      "placeholders": {
+        "vehicleName": {
+          "type": "String"
+        },
+        "date": {
+          "type": "String"
+        }
+    },
+    "description": "Devovrai rinnovare la revisione della tua {vehicleName} entro il {date}. text"
   },
 
   "areYouSure": "Sei sicuro?",

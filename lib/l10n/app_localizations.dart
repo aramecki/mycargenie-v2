@@ -734,17 +734,41 @@ abstract class AppLocalizations {
   /// **'Third party insurance'**
   String get thirdPartyInsurance;
 
-  /// Car tax text
+  /// Tax text
   ///
   /// In en, this message translates to:
-  /// **'Car tax'**
-  String get carTax;
+  /// **'Tax'**
+  String get tax;
 
-  /// Car inspection text
+  /// tax text
   ///
   /// In en, this message translates to:
-  /// **'Car inspection'**
-  String get carInspection;
+  /// **'tax'**
+  String get taxLower;
+
+  /// Technical inspection text
+  ///
+  /// In en, this message translates to:
+  /// **'Technical inspection'**
+  String get inspection;
+
+  /// technical inspection text
+  ///
+  /// In en, this message translates to:
+  /// **'technical inspection'**
+  String get inspectionLower;
+
+  /// Inspector text
+  ///
+  /// In en, this message translates to:
+  /// **'Inspector'**
+  String get inspector;
+
+  /// Performed at: text
+  ///
+  /// In en, this message translates to:
+  /// **'Performed at:'**
+  String get performedAt;
 
   /// Expiring: text
   ///
@@ -752,11 +776,11 @@ abstract class AppLocalizations {
   /// **'Expiring:'**
   String get expiring;
 
-  /// Edit insurance details text
+  /// Edit {invoice} details text
   ///
   /// In en, this message translates to:
-  /// **'Edit insurance details'**
-  String get editInsuranceDetails;
+  /// **'Edit {invoice} details'**
+  String editInvoiceDetails(String invoice);
 
   /// insurance text
   ///
@@ -830,11 +854,35 @@ abstract class AppLocalizations {
   /// **'Your vehicle insurance is expiring!'**
   String get insuranceNotificationsTitle;
 
-  /// The insurance of your {vehicleName} is expiring on  text
+  /// Time to renew your vehicle tax! text
   ///
   /// In en, this message translates to:
-  /// **'The insurance of your {vehicleName} is expiring on '**
-  String insuranceNotificationsBody(String vehicleName);
+  /// **'Time to renew your vehicle tax!'**
+  String get taxNotificationsTitle;
+
+  /// Time to renew your vehicle technical inspection! text
+  ///
+  /// In en, this message translates to:
+  /// **'Time to renew your vehicle technical inspection!'**
+  String get inspectionNotificationsTitle;
+
+  /// The insurance of your {vehicleName} is expiring  on {date}. text
+  ///
+  /// In en, this message translates to:
+  /// **'The insurance of your {vehicleName} is expiring on {date}.'**
+  String insuranceNotificationsBody(String vehicleName, String date);
+
+  /// The vehicle tax for your {vehicleName} is due by {date}. text
+  ///
+  /// In en, this message translates to:
+  /// **'The vehicle tax for your {vehicleName} is due by {date}.'**
+  String taxNotificationsBody(String vehicleName, String date);
+
+  /// It’s time for your {vehicleName}’s technical inspection. Book your appointment by {date} to stay road-legal. text
+  ///
+  /// In en, this message translates to:
+  /// **'It’s time for your {vehicleName}’s technical inspection. Book your appointment by {date} to stay road-legal.'**
+  String inspectionNotificationsBody(String vehicleName, String date);
 
   /// Are you sure? text
   ///

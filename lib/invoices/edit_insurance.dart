@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:mycargenie_2/home.dart';
 import 'package:mycargenie_2/l10n/app_localizations.dart';
+import 'package:mycargenie_2/notifications/notifications_schedulers.dart';
 import 'package:mycargenie_2/notifications/notifications_utils.dart';
 import 'package:mycargenie_2/notifications/permissions.dart';
 import 'package:mycargenie_2/theme/icons.dart';
@@ -16,10 +17,9 @@ import '../utils/puzzle.dart';
 import '../utils/boxes.dart';
 
 class EditInsurance extends StatefulWidget {
-  final Map<String, dynamic>? insuranceDetails;
   final dynamic editKey;
 
-  const EditInsurance({super.key, this.insuranceDetails, this.editKey});
+  const EditInsurance({super.key, this.editKey});
 
   @override
   State<EditInsurance> createState() => _EditInsuranceState();
@@ -106,7 +106,7 @@ class _EditInsuranceState extends State<EditInsurance> {
       }
     } else {
       _startDate = today;
-      _endDate = today.add(const Duration(days: 356));
+      _endDate = today.add(const Duration(days: 365));
       _duesCtrl.text = '1';
     }
   }
@@ -168,7 +168,12 @@ class _EditInsuranceState extends State<EditInsurance> {
       if (_bkEndDate == null) {
         log('_bkEndDate is null, new entry just scheduling');
 
-        scheduleInsuranceNotifications(localizations, vehicleKey, _endDate);
+        scheduleInvoiceNotifications(
+          localizations,
+          vehicleKey,
+          _endDate,
+          NotificationType.insurance,
+        );
       } else if (_bkEndDate != _endDate) {
         log('_bkEndDate and _endDate are different, updating notifications');
 
@@ -176,7 +181,12 @@ class _EditInsuranceState extends State<EditInsurance> {
           insuranceNotificationsBox,
           vehicleKey!,
         );
-        scheduleInsuranceNotifications(localizations, vehicleKey, _endDate);
+        scheduleInvoiceNotifications(
+          localizations,
+          vehicleKey,
+          _endDate,
+          NotificationType.insurance,
+        );
       } else {
         log('_bkEndDate and _endDate are the same, nothing to do');
       }
@@ -186,10 +196,11 @@ class _EditInsuranceState extends State<EditInsurance> {
 
     if (_notifications == true && _duesPersonalizationDates.length > 1) {
       for (int i = 0; i < _duesPersonalizationDates.length; i++) {
-        scheduleInsuranceNotifications(
+        scheduleInvoiceNotifications(
           localizations,
           vehicleKey,
           _duesPersonalizationDates[i],
+          NotificationType.insurance,
         );
       }
     }
@@ -515,6 +526,8 @@ class _EditInsuranceState extends State<EditInsurance> {
                 onPressed: () {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     insuranceBox.delete(widget.editKey);
+                    // TODO: Add notifications box deletion
+                    // TODO: Add notification disable
                     Navigator.of(context).popUntil((route) => route.isFirst);
                   });
                 },
@@ -579,31 +592,5 @@ Future<double?> calculateDues(double? totalPrice, int dues) async {
     return totalPrice / dues;
   } else {
     return null;
-  }
-}
-
-bool scheduleInsuranceNotifications(
-  AppLocalizations localizations,
-  int? vehicleKey,
-  DateTime? date,
-) {
-  if (vehicleKey != null && date != null) {
-    final vehicle = vehicleBox.get(vehicleKey);
-    String vehicleName = '${vehicle['brand']} ${vehicle['model']}';
-    DateTime effectiveDate = date.add(const Duration(hours: 9));
-    scheduleNotification(
-      vehicleKey: vehicleKey,
-      title: localizations.insuranceNotificationsTitle,
-      body:
-          '${localizations.insuranceNotificationsBody(vehicleName)}${localizations.ggMmAaaa(date.day, date.month, date.year)}.',
-      date: effectiveDate,
-      //date: DateTime.now().add(const Duration(seconds: 10)),
-    );
-    return true;
-  } else {
-    log(
-      'returning false in scheduleInsuranceNotifications fun because date: $date vehicleKey: $vehicleKey',
-    );
-    return false;
   }
 }

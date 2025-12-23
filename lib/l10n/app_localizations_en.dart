@@ -358,16 +358,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get thirdPartyInsurance => 'Third party insurance';
 
   @override
-  String get carTax => 'Car tax';
+  String get tax => 'Tax';
 
   @override
-  String get carInspection => 'Car inspection';
+  String get taxLower => 'tax';
+
+  @override
+  String get inspection => 'Technical inspection';
+
+  @override
+  String get inspectionLower => 'technical inspection';
+
+  @override
+  String get inspector => 'Inspector';
+
+  @override
+  String get performedAt => 'Performed at:';
 
   @override
   String get expiring => 'Expiring:';
 
   @override
-  String get editInsuranceDetails => 'Edit insurance details';
+  String editInvoiceDetails(String invoice) {
+    return 'Edit $invoice details';
+  }
 
   @override
   String get insurance => 'insurance';
@@ -416,8 +430,25 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your vehicle insurance is expiring!';
 
   @override
-  String insuranceNotificationsBody(String vehicleName) {
-    return 'The insurance of your $vehicleName is expiring on ';
+  String get taxNotificationsTitle => 'Time to renew your vehicle tax!';
+
+  @override
+  String get inspectionNotificationsTitle =>
+      'Time to renew your vehicle technical inspection!';
+
+  @override
+  String insuranceNotificationsBody(String vehicleName, String date) {
+    return 'The insurance of your $vehicleName is expiring on $date.';
+  }
+
+  @override
+  String taxNotificationsBody(String vehicleName, String date) {
+    return 'The vehicle tax for your $vehicleName is due by $date.';
+  }
+
+  @override
+  String inspectionNotificationsBody(String vehicleName, String date) {
+    return 'It’s time for your $vehicleName’s technical inspection. Book your appointment by $date to stay road-legal.';
   }
 
   @override

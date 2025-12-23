@@ -2,36 +2,29 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:mycargenie_2/invoices/edit_insurance.dart';
+import 'package:mycargenie_2/invoices/edit_inspection.dart';
 import 'package:mycargenie_2/l10n/app_localizations.dart';
-import 'package:mycargenie_2/settings/currency_settings.dart';
 import 'package:mycargenie_2/settings/settings.dart';
-import 'package:mycargenie_2/settings/settings_logics.dart';
-import 'package:mycargenie_2/theme/colors.dart';
 import 'package:mycargenie_2/theme/icons.dart';
-import 'package:provider/provider.dart';
 import '../utils/puzzle.dart';
 import '../utils/boxes.dart';
 
-class Insurance extends StatefulWidget {
+class Inspection extends StatefulWidget {
   final int vehicleKey;
 
-  const Insurance({super.key, required this.vehicleKey});
+  const Inspection({super.key, required this.vehicleKey});
 
   @override
-  State<Insurance> createState() => _InsuranceState();
+  State<Inspection> createState() => _InspectionState();
 }
 
-class _InsuranceState extends State<Insurance> {
+class _InspectionState extends State<Inspection> {
   int? key;
 
-  String _insurer = '';
+  String _inspector = '';
   String _note = '';
-  String? _totalPrice;
   DateTime? _startDate;
   DateTime? _endDate;
-  String _dues = '1';
-  bool _personalizeDues = false;
 
   final now = DateTime.now();
   DateTime get today => DateTime(now.year, now.month, now.day);
@@ -40,10 +33,10 @@ class _InsuranceState extends State<Insurance> {
   void initState() {
     super.initState();
 
-    log('insuranceBox contains: ${insuranceBox.toMap().toString()}');
+    log('inspectionBox contains: ${inspectionBox.toMap().toString()}');
 
-    List<dynamic> details = insuranceBox.keys.where((key) {
-      final value = insuranceBox.get(key);
+    List<dynamic> details = inspectionBox.keys.where((key) {
+      final value = inspectionBox.get(key);
       return value != null && value['vehicleKey'] == widget.vehicleKey;
     }).toList();
 
@@ -56,7 +49,9 @@ class _InsuranceState extends State<Insurance> {
       log('navigating to creation page in initState');
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => EditInsurance(editKey: null)),
+          MaterialPageRoute(
+            builder: (context) => EditInspection(editKey: null),
+          ),
         );
       });
     }
@@ -65,17 +60,14 @@ class _InsuranceState extends State<Insurance> {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
-    final settingsProvider = context.read<SettingsProvider>();
-    final currencySymbol = settingsProvider.currency;
 
-    String totalPriceString = '';
     String? startDateString;
     String? endDateString;
 
     final content = key == null
         ? SizedBox()
         : ValueListenableBuilder(
-            valueListenable: insuranceBox.listenable(keys: [key]),
+            valueListenable: inspectionBox.listenable(keys: [key]),
             builder: (context, box, _) {
               final e = box.get(key);
 
@@ -83,43 +75,10 @@ class _InsuranceState extends State<Insurance> {
                 return Center(child: CircularProgressIndicator());
               }
 
-              _insurer = e['insurer'] ?? '';
+              _inspector = e['inspector'] ?? '';
               _note = e['note'] ?? '';
-              _totalPrice = e['totalPrice']?.toString() ?? '';
               _startDate = e['startDate'] as DateTime;
               _endDate = e['endDate'] as DateTime;
-              _dues = e['dues'];
-              _personalizeDues = e['personalizeDues'];
-
-              List<String> duesPriceList = [];
-              List<String> duesDateList = [];
-
-              int duesInt = int.parse(_dues);
-
-              if (duesInt > 1) {
-                for (var i = 0; i < duesInt; i++) {
-                  duesPriceList.add(
-                    localizations.numCurrency(
-                      parseShowedPrice(e['due$i']),
-                      currencySymbol!,
-                    ),
-                  );
-
-                  DateTime dueDate = e['dueDate$i'];
-                  duesDateList.add(
-                    localizations.ggMmAaaa(
-                      dueDate.day,
-                      dueDate.month,
-                      dueDate.year,
-                    ),
-                  );
-                }
-              }
-
-              totalPriceString = localizations.numCurrency(
-                parseShowedPrice(_totalPrice!),
-                currencySymbol!,
-              );
 
               startDateString = localizations.ggMmAaaa(
                 _startDate!.day,
@@ -137,7 +96,7 @@ class _InsuranceState extends State<Insurance> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  if (_insurer.isNotEmpty)
+                  if (_inspector.isNotEmpty)
                     Padding(
                       padding: EdgeInsets.only(top: 12),
                       child: Row(
@@ -145,14 +104,14 @@ class _InsuranceState extends State<Insurance> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Text(
-                            localizations.insuranceAgency,
+                            localizations.performedAt,
                             style: TextStyle(fontSize: 14),
                           ),
                         ],
                       ),
                     ),
 
-                  if (_insurer.isNotEmpty)
+                  if (_inspector.isNotEmpty)
                     Padding(
                       padding: EdgeInsets.only(bottom: 12),
                       child: Row(
@@ -160,7 +119,7 @@ class _InsuranceState extends State<Insurance> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Text(
-                            _insurer,
+                            _inspector,
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.w500,
@@ -195,64 +154,6 @@ class _InsuranceState extends State<Insurance> {
                     ),
                   ),
 
-                  if (_totalPrice != '0.00')
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            totalPriceString,
-                            style: TextStyle(fontSize: 20),
-                          ),
-
-                          if (duesInt > 1)
-                            Text(
-                              '${localizations.spaceInSpace}${localizations.duesCount(duesInt)}',
-                            ),
-                        ],
-                      ),
-                    ),
-
-                  if (duesInt > 1 && _personalizeDues)
-                    for (var i = 0; i < duesInt; i++)
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 52,
-                          vertical: 0,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text('${localizations.dueSpace}${i + 1} '),
-                            SizedBox(width: 16),
-                            Text(
-                              duesDateList[i].toString(),
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: lightGrey,
-                              ),
-                            ),
-
-                            SizedBox(width: 16),
-
-                            Text(
-                              duesPriceList[i],
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
                   if (_note.isNotEmpty)
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -278,10 +179,10 @@ class _InsuranceState extends State<Insurance> {
                             context,
                             onPressed: () => navigateToPage(
                               context,
-                              EditInsurance(editKey: key),
+                              EditInspection(editKey: key),
                             ),
                             text: localizations.editInvoiceDetails(
-                              localizations.insurance,
+                              localizations.inspectionLower,
                             ),
                           ),
                         ),
@@ -295,7 +196,7 @@ class _InsuranceState extends State<Insurance> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(localizations.thirdPartyInsurance),
+        title: Text(localizations.inspection),
         leading: customBackButton(context),
       ),
       body: GestureDetector(

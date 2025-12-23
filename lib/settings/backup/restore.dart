@@ -39,6 +39,7 @@ Map<dynamic, dynamic> _checkJsonForMap(Map<dynamic, dynamic> jsonMap) {
 }
 
 Future<bool> restoreBoxFromPath(VehicleProvider vehicleProvider) async {
+  // TODO: If there are active notifications, disable, then pick active notifications from boxes
   try {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,

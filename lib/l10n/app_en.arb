@@ -584,14 +584,34 @@
     "description": "Third party insurance text"
   },
 
-  "carTax": "Car tax",
-  "@carTax": {
-    "description": "Car tax text"
+  "tax": "Tax",
+  "@tax": {
+    "description": "Tax text"
   },
 
-  "carInspection": "Car inspection",
-  "@carInspection": {
-    "description": "Car inspection text"
+  "taxLower": "tax",
+  "@taxLower": {
+    "description": "tax text"
+  },
+
+  "inspection": "Technical inspection",
+  "@inspection": {
+    "description": "Technical inspection text"
+  },
+
+  "inspectionLower": "technical inspection",
+  "@inspectionLower": {
+    "description": "technical inspection text"
+  },
+
+  "inspector": "Inspector",
+  "@inspector": {
+    "description": "Inspector text"
+  },
+  
+  "performedAt": "Performed at:",
+  "@performedAt": {
+    "description": "Performed at: text"
   },
 
   "expiring": "Expiring:",
@@ -599,9 +619,14 @@
     "description": "Expiring: text"
   },
 
-  "editInsuranceDetails": "Edit insurance details",
-  "@editInsuranceDetails": {
-    "description": "Edit insurance details text"
+  "editInvoiceDetails": "Edit {invoice} details",
+  "@editInvoiceDetails": {
+      "placeholders": {
+        "invoice": {
+          "type": "String"
+        }
+      },
+    "description": "Edit {invoice} details text"
   },
 
   "insurance": "insurance",
@@ -668,14 +693,53 @@
     "description": "Your vehicle insurance is expiring! text"
   },
 
-  "insuranceNotificationsBody": "The insurance of your {vehicleName} is expiring on ",
+  "taxNotificationsTitle": "Time to renew your vehicle tax!",
+  "@taxNotificationsTitle": {
+    "description": "Time to renew your vehicle tax! text"
+  },
+
+  "inspectionNotificationsTitle": "Time to renew your vehicle technical inspection!",
+  "@inspectionNotificationsTitle": {
+    "description": "Time to renew your vehicle technical inspection! text"
+  },
+
+  "insuranceNotificationsBody": "The insurance of your {vehicleName} is expiring on {date}.",
   "@insuranceNotificationsBody": {
       "placeholders": {
         "vehicleName": {
           "type": "String"
+        },
+        "date": {
+          "type": "String"
         }
     },
-    "description": "The insurance of your {vehicleName} is expiring on  text"
+    "description": "The insurance of your {vehicleName} is expiring  on {date}. text"
+  },
+
+  "taxNotificationsBody": "The vehicle tax for your {vehicleName} is due by {date}.",
+  "@taxNotificationsBody": {
+      "placeholders": {
+        "vehicleName": {
+          "type": "String"
+        },
+        "date": {
+          "type": "String"
+        }
+    },
+    "description": "The vehicle tax for your {vehicleName} is due by {date}. text"
+  },
+
+  "inspectionNotificationsBody": "It’s time for your {vehicleName}’s technical inspection. Book your appointment by {date} to stay road-legal.",
+  "@inspectionNotificationsBody": {
+      "placeholders": {
+        "vehicleName": {
+          "type": "String"
+        },
+        "date": {
+          "type": "String"
+        }
+    },
+    "description": "It’s time for your {vehicleName}’s technical inspection. Book your appointment by {date} to stay road-legal. text"
   },
 
   "areYouSure": "Are you sure?",
